@@ -5,9 +5,15 @@
  */
 package dominio;
 
-public class MateriaPrima {
 
-    private int id;
+/**
+ *
+ * @author Comunidad del anillo
+*/
+
+public class MateriaPrima {
+    
+    private Integer id;
     private String nombre;
     private String tipo;
     private String unidad;

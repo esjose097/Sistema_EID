@@ -5,8 +5,13 @@
  */
 package dominio;
 
-public class ExistenciaMp {
+/**
+ *
+ * @author Comunidad del anillo
+*/
 
+public class ExistenciaMp {
+    private Integer id;
     private MateriaPrima materiaprima;
     private int cantidad;
 

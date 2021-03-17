@@ -7,6 +7,11 @@ package dominio;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Comunidad del anillo
+*/
+
 public class Subgerente extends Empleado {
 
     public Subgerente(int id, String nombre, String userName, String pass, String puesto) {

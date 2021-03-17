@@ -5,9 +5,14 @@
  */
 package dominio;
 
+/**
+ *
+ * @author Comunidad del anillo
+*/
+
 public class Sucursal {
 
-    private int id;
+    private Integer id;
     private String nombre;
     private String direccion;
     private String telefono;

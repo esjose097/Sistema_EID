@@ -7,9 +7,14 @@ package dominio;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Comunidad del anillo
+*/
+
 public class Producto {
 
-    private int id;
+    private Integer id;
     private String nombre;
     private String tipo;
     private String unidad;

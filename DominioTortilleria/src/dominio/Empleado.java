@@ -7,7 +7,7 @@ package dominio;
 
 public class Empleado {
 
-    protected int id;
+    protected Integer id;
     protected String nombre;
     protected String userName;
     protected String pass;

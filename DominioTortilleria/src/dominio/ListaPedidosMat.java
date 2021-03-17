@@ -7,8 +7,14 @@ package dominio;
 
 import java.util.ArrayList;
 
-public class ListaPedidosMat {
+/**
+ *
+ * @author Comunidad del anillo
+*/
 
+public class ListaPedidosMat {
+    
+    private Integer id;
     private Subgerente subgerente;
     private ArrayList<ExistenciaMp> listaMateriaPrima;
 

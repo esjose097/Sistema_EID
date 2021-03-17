@@ -7,8 +7,14 @@ package dominio;
 
 import java.util.ArrayList;
 
-public class Inventario {
+/**
+ *
+ * @author Comunidad del anillo
+*/
 
+public class Inventario {
+    
+    private Integer id;
     private Subgerente subgerente;
     private ArrayList<ExistenciaMp> listaMateriaPrima;
     private ArrayList<ExistenciaP> listaProductos;

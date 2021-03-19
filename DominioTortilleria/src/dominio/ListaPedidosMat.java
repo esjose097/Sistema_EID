@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -31,6 +32,31 @@ public class ListaPedidosMat {
 
     public void setListaMateriaPrima(ArrayList<ExistenciaMp> listaMateriaPrima) {
         this.listaMateriaPrima = listaMateriaPrima;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ListaPedidosMat other = (ListaPedidosMat) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

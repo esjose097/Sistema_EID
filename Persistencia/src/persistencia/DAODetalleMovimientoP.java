@@ -1,42 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistencia;
 
-import dominio.Inventario;
+import dominio.DetalleMovimientoP;
 import java.util.ArrayList;
 
 /**
  *
  * @author Comunidad del anillo
  */
-public class DAOInventario extends CRUD<Inventario>{
+public class DAODetalleMovimientoP extends CRUD<DetalleMovimientoP>{
 
     @Override
-    public void guardar(Inventario entidad) {
+    public void guardar(DetalleMovimientoP entidad) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void actualizar(Inventario entidad) {
+    public void actualizar(DetalleMovimientoP entidad) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void eliminar(Inventario entidad) {
+    public void eliminar(DetalleMovimientoP entidad) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Inventario> consultarTodos() {
+    public ArrayList<DetalleMovimientoP> consultarTodos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Inventario consultarUno(String textoBusqueda) {
+    public DetalleMovimientoP consultarUno(String textoBusqueda) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 
 }

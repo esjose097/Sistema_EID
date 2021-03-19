@@ -15,10 +15,24 @@ public class ExistenciaMp {
         this.cantidad = cantidad;
     }
 
+    public ExistenciaMp(Integer id, MateriaPrima materiaprima, int cantidad) {
+        this.id = id;
+        this.materiaprima = materiaprima;
+        this.cantidad = cantidad;
+    }
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public MateriaPrima getMateriaprima() {
         return materiaprima;
     }
-
+        
     public void setMateriaprima(MateriaPrima materiaprima) {
         this.materiaprima = materiaprima;
     }

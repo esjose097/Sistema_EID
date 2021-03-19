@@ -8,8 +8,8 @@ import java.util.ArrayList;
  */
 public class Subgerente extends Empleado {
 
-    public Subgerente(int id, String nombre, String userName, String pass, String puesto) {
-        super(id, nombre, userName, pass, puesto);
+    public Subgerente(int id, String nombre, String userName, String pass, String puesto, Sucursal sucursal) {
+        super(id, nombre, userName, pass, puesto, sucursal);
     }
 
     public Subgerente(String nombre, String userName, String pass, String puesto, Sucursal sucursal) {

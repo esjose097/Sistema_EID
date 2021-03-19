@@ -1,6 +1,11 @@
 package persistencia;
 
 import dominio.ExistenciaMp;
+import dominio.MateriaPrima;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -11,27 +16,105 @@ public class DAOExistenciaMp extends CRUD<ExistenciaMp> {
 
     @Override
     public void guardar(ExistenciaMp entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            Connection conexion = this.getConexion();
+            Statement comando = conexion.createStatement();            
+            String sql = String.format("INSERT INTO `tortilleria`.`existenciamp` (`materiaprima`, `cantidad`) VALUES ('%s', '%s');", 
+                    entidad.getMateriaprima().getId(), entidad.getCantidad());
+            comando.executeUpdate(sql);
+            conexion.close();
+        }
+        catch(SQLException ex){
+            System.err.println(ex.getMessage());
+        }        
     }
 
     @Override
     public void actualizar(ExistenciaMp entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            Connection conexion = this.getConexion();
+            Statement comando = conexion.createStatement();
+            String sql = String.format("UPDATE `tortilleria`.`existenciamp` SET `materiaprima` = '%s', `cantidad` = '%s' WHERE (`idexistenciamp` = '%s');",
+                entidad.getMateriaprima().getId(), entidad.getCantidad(), entidad.getId());
+            comando.executeUpdate(sql);
+            conexion.close();
+            }
+        catch(SQLException ex){
+            System.err.println(ex.getMessage());
+        }
     }
 
     @Override
     public void eliminar(ExistenciaMp entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            Connection conexion = this.getConexion();
+            Statement comando = conexion.createStatement();
+            String sql = String.format("Delete From existenciamp where idexistenciamp = %s;",  entidad.getId());
+            comando.executeUpdate(sql);
+            conexion.close();
+        }
+        catch(SQLException ex){
+            System.err.println(ex.getMessage());
+        }                
     }
 
     @Override
     public ArrayList<ExistenciaMp> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<ExistenciaMp> listaEMP = new ArrayList<>();
+        try{            
+            Connection conexion = this.getConexion();
+            Statement comando = conexion.createStatement();
+            String sql = "SELECT idexistenciamp, materiaprima, cantidad FROM tortilleria.existenciamp;";
+            ResultSet resultado = comando.executeQuery(sql);
+            while(resultado.next())
+            {                
+                int id = resultado.getInt("idexistenciamp");
+                int materia_Prima_Id = resultado.getInt("materiaprima");
+                int cantidad = resultado.getInt("cantidad");
+                MateriaPrima materiaprima = new DAOMateriaPrima().consultarUno(materia_Prima_Id +"");
+                ExistenciaMp existmp = new ExistenciaMp(id, materiaprima, cantidad);
+                listaEMP.add(existmp);
+            }
+            conexion.close();
+            return listaEMP;
+        }
+        catch(SQLException ex){
+            System.err.println(ex.getMessage());
+            return listaEMP;
+        }
     }
 
     @Override
     public ExistenciaMp consultarUno(String textoBusqueda) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<ExistenciaMp> listaEMP = new ArrayList<>();
+        try{            
+            Connection conexion = this.getConexion();
+            Statement comando = conexion.createStatement();
+            String sql = "SELECT idexistenciamp, materiaprima, cantidad FROM tortilleria.existenciamp;";
+            ResultSet resultado = comando.executeQuery(sql);
+            while(resultado.next())
+            {                
+                int id = resultado.getInt("idexistenciamp");
+                int materia_Prima_id = resultado.getInt("materiaprima");
+                int cantidad = resultado.getInt("cantidad");
+                MateriaPrima materiaprima = new DAOMateriaPrima().consultarUno(materia_Prima_id +"");
+                ExistenciaMp existmp = new ExistenciaMp(id, materiaprima, cantidad);
+                listaEMP.add(existmp);
+            }
+            conexion.close();
+            for(ExistenciaMp emp : listaEMP)
+            {
+                String idM = emp.getId()+"";
+                if(idM.equalsIgnoreCase(textoBusqueda))
+                {
+                    return emp;
+                }                
+            }
+            return null;            
+        }
+        catch(SQLException ex){
+            System.err.println(ex.getMessage());
+            return null;
+        }
     }
-
 }

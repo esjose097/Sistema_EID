@@ -8,19 +8,19 @@ public class MateriaPrima {
 
     private Integer id;
     private String nombre;
-    private String tipo;
+    private String distribuidora;
     private String unidad;
 
-    public MateriaPrima(int id, String nombre, String tipo, String unidad) {
+    public MateriaPrima(int id, String nombre, String distribuidora, String unidad) {
         this.id = id;
         this.nombre = nombre;
-        this.tipo = tipo;
+        this.distribuidora = distribuidora;
         this.unidad = unidad;
     }
 
-    public MateriaPrima(String nombre, String tipo, String unidad) {
+    public MateriaPrima(String nombre, String distribuidora, String unidad) {
         this.nombre = nombre;
-        this.tipo = tipo;
+        this.distribuidora = distribuidora;
         this.unidad = unidad;
     }
 
@@ -40,12 +40,12 @@ public class MateriaPrima {
         this.nombre = nombre;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getDistribuidora() {
+        return distribuidora;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setDistribuidora(String distribuidora) {
+        this.distribuidora = distribuidora;
     }
 
     public String getUnidad() {
@@ -83,7 +83,7 @@ public class MateriaPrima {
 
     @Override
     public String toString() {
-        return "MateriaPrima{" + "id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + ", unidad=" + unidad + '}';
+        return "MateriaPrima{" + "id=" + id + ", nombre=" + nombre + ", tipo=" + distribuidora + ", unidad=" + unidad + '}';
     }
 
 }

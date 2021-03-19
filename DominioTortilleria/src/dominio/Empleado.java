@@ -13,12 +13,13 @@ public class Empleado {
     protected String puesto;
     protected Sucursal sucursal;
 
-    public Empleado(int id, String nombre, String userName, String pass, String puesto) {
+    public Empleado(Integer id, String nombre, String userName, String pass, String puesto, Sucursal sucursal) {
         this.id = id;
         this.nombre = nombre;
         this.userName = userName;
         this.pass = pass;
         this.puesto = puesto;
+        this.sucursal = sucursal;
     }
 
     public Empleado(String nombre, String userName, String pass, String puesto, Sucursal sucursal) {
@@ -29,13 +30,22 @@ public class Empleado {
         this.sucursal = sucursal;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(Sucursal sucursal) {
+        this.sucursal = sucursal;
+    }
+
 
     public String getNombre() {
         return nombre;
@@ -68,6 +78,8 @@ public class Empleado {
     public void setPuesto(String puesto) {
         this.puesto = puesto;
     }
+    
+    
 
     @Override
     public int hashCode() {

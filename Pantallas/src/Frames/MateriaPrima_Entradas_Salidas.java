@@ -38,16 +38,16 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         tableInventario = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         ListListaProvisional = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelListaProvisional = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnGuardarCambios = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbEntrada = new javax.swing.JRadioButton();
+        rbSalida = new javax.swing.JRadioButton();
         btnAgregar = new javax.swing.JButton();
         SpinnerCantidad = new javax.swing.JSpinner();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelCantidad = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Entradas y Salidas Materias Primas");
@@ -85,8 +85,8 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         ListListaProvisional.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jScrollPane2.setViewportView(ListListaProvisional);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setText("Lista Provisional");
+        jLabelListaProvisional.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabelListaProvisional.setText("Lista Provisional");
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Lupa.png"))); // NOI18N
 
@@ -100,14 +100,14 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
 
-        buttonGroupModo.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Entrada");
+        buttonGroupModo.add(rbEntrada);
+        rbEntrada.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        rbEntrada.setSelected(true);
+        rbEntrada.setText("Entrada");
 
-        buttonGroupModo.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jRadioButton2.setText("Salida");
+        buttonGroupModo.add(rbSalida);
+        rbSalida.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        rbSalida.setText("Salida");
 
         btnAgregar.setBackground(new java.awt.Color(255, 153, 51));
         btnAgregar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -116,8 +116,8 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
 
         SpinnerCantidad.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel2.setText("Cant:");
+        jLabelCantidad.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabelCantidad.setText("Cant:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,7 +136,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabelListaProvisional)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -149,12 +149,12 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
+                            .addComponent(rbEntrada)
+                            .addComponent(rbSalida))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
+                        .addComponent(jLabelCantidad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(SpinnerCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37))))
@@ -166,7 +166,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                        .addComponent(jLabelListaProvisional)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -180,20 +180,18 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton1)
+                            .addComponent(rbEntrada)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
-                                .addComponent(jRadioButton2)))
+                                .addComponent(rbSalida)))
                         .addGap(0, 12, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(SpinnerCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(SpinnerCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelCantidad))
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnGuardarCambios)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -249,12 +247,12 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarCambios;
     private javax.swing.ButtonGroup buttonGroupModo;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel jLabelCantidad;
+    private javax.swing.JLabel jLabelListaProvisional;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JRadioButton rbEntrada;
+    private javax.swing.JRadioButton rbSalida;
     private javax.swing.JTable tableInventario;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

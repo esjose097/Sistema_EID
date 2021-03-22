@@ -1,6 +1,5 @@
 package dominio;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -13,19 +12,19 @@ public class DetalleMovimientoP {
     private Integer id;
     private String tipo;
     private Calendar fecha;
-    private ArrayList<ExistenciaP> listaExP;
+    private Producto producto;
 
-    public DetalleMovimientoP(Integer id, String tipo, Calendar fecha, ArrayList<ExistenciaP> listaExP) {
+    public DetalleMovimientoP(String tipo, Calendar fecha, Producto producto) {
+        this.tipo = tipo;
+        this.fecha = fecha;
+        this.producto = producto;
+    }
+    
+    public DetalleMovimientoP(Integer id, String tipo, Calendar fecha, Producto producto) {
         this.id = id;
         this.tipo = tipo;
         this.fecha = fecha;
-        this.listaExP = listaExP;
-    }
-
-    public DetalleMovimientoP(String tipo, Calendar fecha, ArrayList<ExistenciaP> listaExP) {
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.listaExP = listaExP;
+        this.producto = producto;
     }
 
     public Integer getId() {
@@ -52,18 +51,18 @@ public class DetalleMovimientoP {
         this.fecha = fecha;
     }
 
-    public ArrayList<ExistenciaP> getListaExP() {
-        return listaExP;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setListaExP(ArrayList<ExistenciaP> listaExP) {
-        this.listaExP = listaExP;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -87,7 +86,7 @@ public class DetalleMovimientoP {
 
     @Override
     public String toString() {
-        return "DetalleMovimientoP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", listaExP=" + listaExP + '}';
+        return "DetalleMovimientoP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", producto=" + producto + '}';
     }
 
 }

@@ -12,20 +12,25 @@ public class ListaPedidosProd {
     private Integer id;
     private Subgerente subgerente;
     private SucursalE sucursalExterna; // <-
-    private ArrayList<ExistenciaP> listaProductos;
+    private Producto producto;
+    private int cantidad;
 
-    public ListaPedidosProd(Integer id, Subgerente subgerente, SucursalE sucursalExterna, ArrayList<ExistenciaP> listaProductos) {
+    public ListaPedidosProd(Integer id, Subgerente subgerente, SucursalE sucursalExterna, Producto producto, int cantidad) {
         this.id = id;
         this.subgerente = subgerente;
         this.sucursalExterna = sucursalExterna;
-        this.listaProductos = listaProductos;
+        this.producto = producto;
+        this.cantidad = cantidad;
     }
 
-    public ListaPedidosProd(Subgerente subgerente, SucursalE sucursalExterna, ArrayList<ExistenciaP> listaProductos) {
+    public ListaPedidosProd(Subgerente subgerente, SucursalE sucursalExterna, Producto producto, int cantidad) {
         this.subgerente = subgerente;
         this.sucursalExterna = sucursalExterna;
-        this.listaProductos = listaProductos;
+        this.producto = producto;
+        this.cantidad = cantidad;
     }
+
+    
 
     public Integer getId() {
         return id;
@@ -51,18 +56,26 @@ public class ListaPedidosProd {
         this.sucursalExterna = sucursalExterna;
     }
 
-    public ArrayList<ExistenciaP> getListaProductos() {
-        return listaProductos;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setListaProductos(ArrayList<ExistenciaP> listaProductos) {
-        this.listaProductos = listaProductos;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -86,7 +99,7 @@ public class ListaPedidosProd {
 
     @Override
     public String toString() {
-        return "ListaPedidosProd{" + "id=" + id + ", subgerente=" + subgerente + ", sucursalExterna=" + sucursalExterna + ", listaProductos=" + listaProductos + '}';
+        return "ListaPedidosProd{" + "id=" + id + ", subgerente=" + subgerente + ", sucursalExterna=" + sucursalExterna + ", producto=" + producto + ", cantidad=" + cantidad + '}';
     }
 
 }

@@ -14,19 +14,19 @@ public class DetalleMovimientoMP {
     private Integer id;
     private String tipo;
     private Calendar fecha;
-    private ArrayList<ExistenciaMp> listaExMP;
+    private MateriaPrima materiaprima;
 
-    public DetalleMovimientoMP(Integer id, String tipo, Calendar fecha, ArrayList<ExistenciaMp> listaExMP) {
+    public DetalleMovimientoMP(String tipo, Calendar fecha, MateriaPrima materiaprima) {
+        this.tipo = tipo;
+        this.fecha = fecha;
+        this.materiaprima = materiaprima;
+    }
+
+    public DetalleMovimientoMP(Integer id, String tipo, Calendar fecha, MateriaPrima materiaprima) {
         this.id = id;
         this.tipo = tipo;
         this.fecha = fecha;
-        this.listaExMP = listaExMP;
-    }
-
-    public DetalleMovimientoMP(String tipo, Calendar fecha, ArrayList<ExistenciaMp> listaExMP) {
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.listaExMP = listaExMP;
+        this.materiaprima = materiaprima;
     }
 
     public Integer getId() {
@@ -53,18 +53,18 @@ public class DetalleMovimientoMP {
         this.fecha = fecha;
     }
 
-    public ArrayList<ExistenciaMp> getListaExMP() {
-        return listaExMP;
+    public MateriaPrima getMateriaprima() {
+        return materiaprima;
     }
 
-    public void setListaExMP(ArrayList<ExistenciaMp> listaExMP) {
-        this.listaExMP = listaExMP;
+    public void setMateriaprima(MateriaPrima materiaprima) {
+        this.materiaprima = materiaprima;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -88,7 +88,7 @@ public class DetalleMovimientoMP {
 
     @Override
     public String toString() {
-        return "DetalleMovimientoMP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", listaExMP=" + listaExMP + '}';
+        return "DetalleMovimientoMP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", materiaprima=" + materiaprima + '}';
     }
 
 }

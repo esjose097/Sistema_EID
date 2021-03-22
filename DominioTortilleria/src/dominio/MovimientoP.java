@@ -1,6 +1,5 @@
 package dominio;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -12,17 +11,23 @@ public class MovimientoP {
 
     private Integer id;
     private Calendar fecha;
-    private ArrayList<ListaPedidosProd> prod;
+    private SucursalE sucursalexterno;
+    private Producto producto;
+    private int cantidad;
 
-    public MovimientoP(Integer id, Calendar fecha, ArrayList<ListaPedidosProd> prod) {
+    public MovimientoP(Integer id, Calendar fecha, SucursalE sucursalexterno, Producto producto, int cantidad) {
         this.id = id;
         this.fecha = fecha;
-        this.prod = prod;
+        this.sucursalexterno = sucursalexterno;
+        this.producto = producto;
+        this.cantidad = cantidad;
     }
 
-    public MovimientoP(Calendar fecha, ArrayList<ListaPedidosProd> prod) {
+    public MovimientoP(Calendar fecha, SucursalE sucursalexterno, Producto producto, int cantidad) {
         this.fecha = fecha;
-        this.prod = prod;
+        this.sucursalexterno = sucursalexterno;
+        this.producto = producto;
+        this.cantidad = cantidad;
     }
 
     public Integer getId() {
@@ -41,18 +46,34 @@ public class MovimientoP {
         this.fecha = fecha;
     }
 
-    public ArrayList<ListaPedidosProd> getProd() {
-        return prod;
+    public SucursalE getSucursalexterno() {
+        return sucursalexterno;
     }
 
-    public void setProd(ArrayList<ListaPedidosProd> prod) {
-        this.prod = prod;
+    public void setSucursalexterno(SucursalE sucursalexterno) {
+        this.sucursalexterno = sucursalexterno;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -76,7 +97,7 @@ public class MovimientoP {
 
     @Override
     public String toString() {
-        return "MovimientoP{" + "id=" + id + ", fecha=" + fecha + ", prod=" + prod + '}';
+        return "MovimientoP{" + "id=" + id + ", fecha=" + fecha + ", sucursalexterno=" + sucursalexterno + ", producto=" + producto + ", cantidad=" + cantidad + '}';
     }
 
 }

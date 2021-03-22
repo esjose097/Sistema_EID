@@ -1,6 +1,5 @@
 package dominio;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -12,17 +11,28 @@ public class MovimientoMP {
 
     private Integer id;
     private Calendar fecha;
-    private ArrayList<ListaPedidosMat> prod;
+    private MateriaPrima materiaprima;
+    private int cantidad;
 
-    public MovimientoMP(Integer id, Calendar fecha, ArrayList<ListaPedidosMat> prod) {
+    public MovimientoMP(Calendar fecha, MateriaPrima materiaprima, int cantidad) {
+        this.fecha = fecha;
+        this.materiaprima = materiaprima;
+        this.cantidad = cantidad;
+    }
+    
+    public MovimientoMP(Integer id, Calendar fecha, MateriaPrima materiaprima, int cantidad) {
         this.id = id;
         this.fecha = fecha;
-        this.prod = prod;
+        this.materiaprima = materiaprima;
+        this.cantidad = cantidad;
     }
 
-    public MovimientoMP(Calendar fecha, ArrayList<ListaPedidosMat> prod) {
-        this.fecha = fecha;
-        this.prod = prod;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Calendar getFecha() {
@@ -33,17 +43,25 @@ public class MovimientoMP {
         this.fecha = fecha;
     }
 
-    public ArrayList<ListaPedidosMat> getProd() {
-        return prod;
+    public MateriaPrima getMateriaprima() {
+        return materiaprima;
     }
 
-    public void setProd(ArrayList<ListaPedidosMat> prod) {
-        this.prod = prod;
+    public void setMateriaprima(MateriaPrima materiaprima) {
+        this.materiaprima = materiaprima;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
@@ -68,7 +86,7 @@ public class MovimientoMP {
 
     @Override
     public String toString() {
-        return "MovimientoMP{" + "id=" + id + ", fecha=" + fecha + ", prod=" + prod + '}';
+        return "MovimientoMP{" + "id=" + id + ", fecha=" + fecha + ", materiaprima=" + materiaprima + ", cantidad=" + cantidad + '}';
     }
 
 }

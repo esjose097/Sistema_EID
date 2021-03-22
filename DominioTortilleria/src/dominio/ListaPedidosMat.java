@@ -11,11 +11,28 @@ public class ListaPedidosMat {
 
     private Integer id;
     private Subgerente subgerente;
-    private ArrayList<ExistenciaMp> listaMateriaPrima;
+    private MateriaPrima materiaprima;
+    private int cantidad;
 
-    public ListaPedidosMat(Subgerente subgerente, ArrayList<ExistenciaMp> listaMateriaPrima) {
+    public ListaPedidosMat(Integer id, Subgerente subgerente, MateriaPrima materiaprima, int cantidad) {
+        this.id = id;
         this.subgerente = subgerente;
-        this.listaMateriaPrima = listaMateriaPrima;
+        this.materiaprima = materiaprima;
+        this.cantidad = cantidad;
+    }
+
+    public ListaPedidosMat(Subgerente subgerente, MateriaPrima materiaprima, int cantidad) {
+        this.subgerente = subgerente;
+        this.materiaprima = materiaprima;
+        this.cantidad = cantidad;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Subgerente getSubgerente() {
@@ -26,18 +43,26 @@ public class ListaPedidosMat {
         this.subgerente = subgerente;
     }
 
-    public ArrayList<ExistenciaMp> getListaMateriaPrima() {
-        return listaMateriaPrima;
+    public MateriaPrima getMateriaprima() {
+        return materiaprima;
     }
 
-    public void setListaMateriaPrima(ArrayList<ExistenciaMp> listaMateriaPrima) {
-        this.listaMateriaPrima = listaMateriaPrima;
+    public void setMateriaprima(MateriaPrima materiaprima) {
+        this.materiaprima = materiaprima;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -61,7 +86,7 @@ public class ListaPedidosMat {
 
     @Override
     public String toString() {
-        return "ListaPedidosMat{" + "subgerente=" + subgerente + ", listaMateriaPrima=" + listaMateriaPrima + '}';
+        return "ListaPedidosMat{" + "id=" + id + ", subgerente=" + subgerente + ", materiaprima=" + materiaprima + ", cantidad=" + cantidad + '}';
     }
 
 }

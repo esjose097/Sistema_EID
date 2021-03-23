@@ -105,7 +105,7 @@ public class DAOExistenciaMp extends CRUD<ExistenciaMp> {
             for(ExistenciaMp emp : listaEMP)
             {
                 String idM = emp.getId()+"";
-                if(idM.equalsIgnoreCase(textoBusqueda))
+                if(emp.getMateriaprima().getNombre().equalsIgnoreCase(textoBusqueda))
                 {
                     return emp;
                 }                
@@ -117,4 +117,16 @@ public class DAOExistenciaMp extends CRUD<ExistenciaMp> {
             return null;
         }
     }
+    
+    public boolean existeExistenciaMP(String nombre){
+        ArrayList<ExistenciaMp> listaEMP = consultarTodos();
+        
+        for (ExistenciaMp existenciaMp : listaEMP) {
+            if(existenciaMp.getMateriaprima().getNombre().equalsIgnoreCase(nombre)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

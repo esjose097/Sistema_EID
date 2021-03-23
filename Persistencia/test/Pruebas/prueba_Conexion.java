@@ -30,6 +30,11 @@ public class prueba_Conexion {
 //        DAOExistenciaMp dEMP = new DAOExistenciaMp();
 //        
 //        MateriaPrima matP = new MateriaPrima("Harina", "HarinasFPS", "Costales");
+//        
+//        System.out.println(dMP.consultarTodos());
+//        
+//        dEMP.actualizar(new ExistenciaMp(1, new MateriaPrima(1, "Harina" , "Molino", "Costal"), 3));
+//        
 //        Sucursal sucursal = new Sucursal("Matriz");
 //        daoS.guardar(sucursal);
 //        

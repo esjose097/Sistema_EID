@@ -5,8 +5,15 @@
  */
 package Frames;
 
-import ModeloComponentes.RoundedBorder;
+import control.ControlMateriaPrima;
+import dominio.ExistenciaMp;
+import dominio.MateriaPrima;
+import interfaces.IMateriaPrima;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import placeholder.TextPrompt;
 
@@ -19,8 +26,14 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     /**
      * Creates new form MateriaPrima_Entradas_Salidas
      */
+    IMateriaPrima Imp;
+    
+    
     public MateriaPrima_Entradas_Salidas() {
         initComponents();
+        this.Imp = new ControlMateriaPrima();
+        actualizarTabla();
+
     }
 
     /**
@@ -36,8 +49,6 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableInventario = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        ListListaProvisional = new javax.swing.JList<>();
         jLabelListaProvisional = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -48,6 +59,8 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         SpinnerCantidad = new javax.swing.JSpinner();
         jLabelCantidad = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        JListListaProvisional = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Entradas y Salidas Materias Primas");
@@ -61,11 +74,11 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Materia Prima", "Lotes"
+                "ID", "Nombre", "Distribuidora", "Unidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -74,31 +87,36 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableInventario);
         if (tableInventario.getColumnModel().getColumnCount() > 0) {
-            tableInventario.getColumnModel().getColumn(0).setResizable(false);
-            tableInventario.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tableInventario.getColumnModel().getColumn(1).setResizable(false);
+            tableInventario.getColumnModel().getColumn(1).setPreferredWidth(30);
         }
         TableCellRenderer rendererFromHeader = tableInventario.getTableHeader().getDefaultRenderer();
         JLabel headerLabel = (JLabel) rendererFromHeader;
         headerLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        ListListaProvisional.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jScrollPane2.setViewportView(ListListaProvisional);
-
         jLabelListaProvisional.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabelListaProvisional.setText("Lista Provisional");
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Lupa.png"))); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Lupa.png"))); // NOI18N
 
         btnGuardarCambios.setBackground(new java.awt.Color(102, 255, 102));
         btnGuardarCambios.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnGuardarCambios.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardarCambios.setText("<html>Guardar<br>Cambios</html>");
+        btnGuardarCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarCambiosActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         buttonGroupModo.add(rbEntrada);
         rbEntrada.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -113,31 +131,40 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         btnAgregar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         SpinnerCantidad.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         jLabelCantidad.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabelCantidad.setText("Cant:");
 
+        JListListaProvisional.setModel(new DefaultListModel<ExistenciaMp>()
+        );
+        jScrollPane3.setViewportView(JListListaProvisional);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnEliminar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jLabelListaProvisional)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addComponent(jLabelListaProvisional))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -162,13 +189,13 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelListaProvisional)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -202,6 +229,40 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        int[] indexs = tableInventario.getSelectedRows();
+        int cant = (int) SpinnerCantidad.getValue();
+        DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
+        DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
+        
+        MateriaPrima ex;
+        Vector v;
+
+        for (int index : indexs) {
+            v = model.getDataVector().elementAt(index);
+            ex = new MateriaPrima((int) v.get(0), (String) v.get(1), (String) v.get(2), (String) v.get(3));
+            listmodel.addElement(new ExistenciaMp(ex, cant));
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        borrarLista();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
+       boolean option= rbEntrada.getModel().isSelected();
+       ObtenerDatosLista();
+       ArrayList<ExistenciaMp> ex=ObtenerDatosLista();
+       if(option){
+           System.out.println("Entrada");
+           Imp.guardarEntrada(ex);
+       }else{
+           System.out.println("Salida");
+           Imp.guardarSalida(ex);
+       }
+       
+    }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,8 +299,41 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         });
     }
 
+    public void actualizarTabla() {
+        ArrayList<MateriaPrima> listaMateria = Imp.ObtenerMateriaPrima();
+        borrarTabla();
+        DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
+
+        for (MateriaPrima materiaPrima : listaMateria) {
+            model.addRow(new Object[]{materiaPrima.getId(), materiaPrima.getNombre(), materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
+        }
+
+    }
+
+    public void borrarTabla() {
+        DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
+        model.getDataVector().clear();
+    }
+
+    public void borrarLista() {
+        DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
+        listmodel.clear();
+    }
+    
+    public ArrayList<ExistenciaMp> ObtenerDatosLista(){
+        int length = -1;
+        ArrayList<ExistenciaMp> ex=new ArrayList<>();
+        DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
+        length= listmodel.size();
+        for (int i = 0; i < length; i++) {
+            ex.add(listmodel.elementAt(i));
+         }
+       return ex;
+    }
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> ListListaProvisional;
+    private javax.swing.JList<ExistenciaMp> JListListaProvisional;
     private javax.swing.JSpinner SpinnerCantidad;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
@@ -250,7 +344,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCantidad;
     private javax.swing.JLabel jLabelListaProvisional;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JRadioButton rbEntrada;
     private javax.swing.JRadioButton rbSalida;
     private javax.swing.JTable tableInventario;

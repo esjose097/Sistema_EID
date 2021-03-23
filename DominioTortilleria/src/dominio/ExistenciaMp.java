@@ -47,7 +47,7 @@ public class ExistenciaMp {
 
     @Override
     public String toString() {
-        return "ExistenciaMp{" + "materiaprima=" + materiaprima + ", cantidad=" + cantidad + '}';
+        return  materiaprima.getNombre() + " - Cant: " + cantidad;
     }
 
 }

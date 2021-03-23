@@ -13,19 +13,24 @@ public class DetalleMovimientoP {
     private String tipo;
     private Calendar fecha;
     private Producto producto;
+    private int cantidad;
 
-    public DetalleMovimientoP(String tipo, Calendar fecha, Producto producto) {
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.producto = producto;
-    }
-    
-    public DetalleMovimientoP(Integer id, String tipo, Calendar fecha, Producto producto) {
+    public DetalleMovimientoP(Integer id, String tipo, Calendar fecha, Producto producto, int cantidad) {
         this.id = id;
         this.tipo = tipo;
         this.fecha = fecha;
         this.producto = producto;
+        this.cantidad = cantidad;
     }
+
+    public DetalleMovimientoP(String tipo, Calendar fecha, Producto producto, int cantidad) {
+        this.tipo = tipo;
+        this.fecha = fecha;
+        this.producto = producto;
+        this.cantidad = cantidad;
+    }
+
+    
 
     public Integer getId() {
         return id;
@@ -59,10 +64,18 @@ public class DetalleMovimientoP {
         this.producto = producto;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -86,7 +99,9 @@ public class DetalleMovimientoP {
 
     @Override
     public String toString() {
-        return "DetalleMovimientoP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", producto=" + producto + '}';
+        return "DetalleMovimientoP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad + '}';
     }
+
+    
 
 }

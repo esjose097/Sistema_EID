@@ -92,6 +92,8 @@ public class ControlMateriaPrima implements IMateriaPrima {
         for (ExistenciaMp existenciaMp : Existencia) {
             if (!crudextra.existeExistenciaMP(existenciaMp.getMateriaprima().getNombre())) {
                 crudextra.guardar(existenciaMp);
+                //crudMovimientoMP
+                //crudExistenciaMovimientoMP
             } else {
                ex = (ExistenciaMp) crudextra.consultarUno(existenciaMp.getMateriaprima().getNombre());
                    ex.setCantidad(ex.getCantidad() + existenciaMp.getCantidad());

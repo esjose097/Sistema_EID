@@ -18,7 +18,7 @@ public class DAOExistenciaP extends CRUD<ExistenciaP> {
     public void guardar(ExistenciaP entidad) {
         try{
             Connection conexion = this.getConexion();
-            Statement comando = conexion.createStatement();            
+            Statement comando = conexion.createStatement();
             String sql = String.format("INSERT INTO `tortilleria`.`existenciaP` (`producto`, `cantidad`) VALUES ('%s', '%s');", 
                     entidad.getProducto().getId(), entidad.getCantidad());
             comando.executeUpdate(sql);

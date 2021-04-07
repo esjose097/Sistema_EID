@@ -14,7 +14,7 @@ public abstract class CRUD<T> {
 
     private static String CADENA_CONEXION = "jdbc:mysql://localhost/tortilleria?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static String USUARIO = "root";
-    private static String CONTRASENIA = "1234";
+    private static String CONTRASENIA = "64224Cas";
 
     protected Connection getConexion() throws SQLException {
         try {

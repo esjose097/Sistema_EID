@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package Pruebas;
-import dominio.DetalleMovimientoMP;
+import dominio.Empleado;
+import dominio.Sucursal;
 import persistencia.*;
 
 /**
@@ -55,13 +56,19 @@ public class prueba_Conexion {
 //        MovimientoMP m=  dmp.consultarUno("5");
 //        dmp.eliminar(m);
 
-        DAODetalleMovimientoMp dmp=new DAODetalleMovimientoMp();
+//        DAODetalleMovimientoMp dmp=new DAODetalleMovimientoMp();
 //        System.out.println(dmp.numeroMovimientoMasAlto());
 
 //       dmp.consultarTodos().forEach((elemento) -> {
 //           System.out.println(elemento);
 //       });
 
+        DAOEmpleado demp = new DAOEmpleado();
+        DAOSucursal dsuc = new DAOSucursal();
+        Sucursal sucursal = dsuc.consultarUno("1");
+        Empleado  emp = new Empleado("pedro", "pedrox", "pedro123", "conserje", sucursal);
+        
+        demp.guardar(emp);
         
         
     }

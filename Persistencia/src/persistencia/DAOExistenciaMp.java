@@ -5,6 +5,7 @@ import com.mysql.cj.xdevapi.PreparableStatement;
 import dominio.ExistenciaMp;
 import dominio.MateriaPrima;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,8 +21,8 @@ public class DAOExistenciaMp extends CRUD<ExistenciaMp> {
     public void guardar(ExistenciaMp entidad) {
         try{
             Connection conexion = this.getConexion();
-            Statement comando = conexion.createStatement(); 
-            String sql = String.format("INSERT INTO `tortilleria`.`existenciamp` (`materiaprima`, `cantidad`) VALUES ('%s', '%s');", 
+            Statement comando = conexion.createStatement();
+            String sql = String.format("INSERT INTO `tortilleria`.`existenciamp` (`materiaprima`, `cantidad`) VALUES ('%s', '%s');",
                     entidad.getMateriaprima().getId(), entidad.getCantidad());
             comando.executeUpdate(sql);
             conexion.close();
@@ -37,7 +38,7 @@ public class DAOExistenciaMp extends CRUD<ExistenciaMp> {
             Connection conexion = this.getConexion();
             Statement comando = conexion.createStatement();
             String sql = String.format("UPDATE `tortilleria`.`existenciamp` SET `materiaprima` = '%s', `cantidad` = '%s' WHERE (`idexistenciamp` = '%s');",
-                entidad.getMateriaprima().getId(), entidad.getCantidad(), entidad.getId());
+                    entidad.getMateriaprima().getId(), entidad.getCantidad(), entidad.getId());
             comando.executeUpdate(sql);
             conexion.close();
             }
@@ -49,9 +50,10 @@ public class DAOExistenciaMp extends CRUD<ExistenciaMp> {
     @Override
     public void eliminar(ExistenciaMp entidad) {
         try{
-            Connection conexion = this.getConexion();
+            Connection conexion = this.getConexion(); 
             Statement comando = conexion.createStatement();
-            String sql = String.format("Delete From existenciamp where idexistenciamp = %s;",  entidad.getId());
+            String sql = String.format("Delete From existenciamp where idexistenciamp = '%s'", 
+                    entidad.getId());
             comando.executeUpdate(sql);
             conexion.close();
         }

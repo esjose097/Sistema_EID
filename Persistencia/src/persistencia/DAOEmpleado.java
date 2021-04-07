@@ -3,6 +3,7 @@ package persistencia;
 import dominio.Empleado;
 import dominio.Sucursal;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,8 +20,8 @@ public class DAOEmpleado extends CRUD<Empleado> {
         try{
             Connection conexion = this.getConexion();
             Statement comando = conexion.createStatement();            
-            String sql = String.format("INSERT INTO `tortilleria`.`empleado` (`nombre`, `username`, `pass`, `puesto`, `sucursal`) VALUES ('%s', '%s', '%s', '%s','%s');", 
-                    entidad.getNombre(), entidad.getUserName(),entidad.getPass(), entidad.getPuesto(), entidad.getSucursal().getId());
+            String sql = String.format("INSERT INTO `tortilleria`.`empleado` (`nombre`, `username`, `pass`, `puesto`, `sucursal`) VALUES ('%s', '%s', '%s', '%s', '%s');", 
+                    entidad.getNombre(), entidad.getUserName(), entidad.getPass(), entidad.getPuesto(), entidad.getSucursal().getId());
             comando.executeUpdate(sql);
             conexion.close();
         }
@@ -34,8 +35,8 @@ public class DAOEmpleado extends CRUD<Empleado> {
         try{
             Connection conexion = this.getConexion();
             Statement comando = conexion.createStatement();
-            String sql = String.format("UPDATE `tortilleria`.`empleado` SET `nombre` = '%s', `username` = '%s', `pass` = '%s', `puesto` = '%s', `sucursal` = '%s' WHERE (`idempleado` = '%s');", 
-                    entidad.getNombre(), entidad.getUserName(),entidad.getPass(), entidad.getPuesto(), entidad.getSucursal().getId(), entidad.getId());
+            String sql = String.format("UPDATE `tortilleria`.`empleado` SET `nombre` = '%s', `username` = '%s', `pass` = '%s', `puesto` = '%s', `sucursal` = '%s' WHERE (`idempleado` = '%s');",
+                entidad.getNombre(), entidad.getUserName(), entidad.getPass(), entidad.getSucursal(), entidad.getSucursal().getId(), entidad.getId());
             comando.executeUpdate(sql);
             conexion.close();
             }

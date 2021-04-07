@@ -1,5 +1,7 @@
 package persistencia;
 
+import com.mysql.cj.jdbc.PreparedStatementWrapper;
+import com.mysql.cj.xdevapi.PreparableStatement;
 import dominio.ExistenciaMp;
 import dominio.MateriaPrima;
 import java.sql.Connection;
@@ -18,7 +20,7 @@ public class DAOExistenciaMp extends CRUD<ExistenciaMp> {
     public void guardar(ExistenciaMp entidad) {
         try{
             Connection conexion = this.getConexion();
-            Statement comando = conexion.createStatement();            
+            Statement comando = conexion.createStatement(); 
             String sql = String.format("INSERT INTO `tortilleria`.`existenciamp` (`materiaprima`, `cantidad`) VALUES ('%s', '%s');", 
                     entidad.getMateriaprima().getId(), entidad.getCantidad());
             comando.executeUpdate(sql);

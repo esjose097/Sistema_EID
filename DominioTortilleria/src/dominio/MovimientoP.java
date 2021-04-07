@@ -7,28 +7,31 @@ import java.util.Objects;
  *
  * @author Comunidad del anillo
  */
-public class MovimientoP {
+public class MovimientoP //MovimientoP 
+{
 
     private Integer id;
+    private String tipo;
     private Calendar fecha;
-    private SucursalE sucursalexterno;
     private Producto producto;
     private int cantidad;
 
-    public MovimientoP(Integer id, Calendar fecha, SucursalE sucursalexterno, Producto producto, int cantidad) {
+    public MovimientoP(Integer id, String tipo, Calendar fecha, Producto producto, int cantidad) {
         this.id = id;
+        this.tipo = tipo;
         this.fecha = fecha;
-        this.sucursalexterno = sucursalexterno;
         this.producto = producto;
         this.cantidad = cantidad;
     }
 
-    public MovimientoP(Calendar fecha, SucursalE sucursalexterno, Producto producto, int cantidad) {
+    public MovimientoP(String tipo, Calendar fecha, Producto producto, int cantidad) {
+        this.tipo = tipo;
         this.fecha = fecha;
-        this.sucursalexterno = sucursalexterno;
         this.producto = producto;
         this.cantidad = cantidad;
     }
+
+    
 
     public Integer getId() {
         return id;
@@ -38,20 +41,20 @@ public class MovimientoP {
         this.id = id;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public Calendar getFecha() {
         return fecha;
     }
 
     public void setFecha(Calendar fecha) {
         this.fecha = fecha;
-    }
-
-    public SucursalE getSucursalexterno() {
-        return sucursalexterno;
-    }
-
-    public void setSucursalexterno(SucursalE sucursalexterno) {
-        this.sucursalexterno = sucursalexterno;
     }
 
     public Producto getProducto() {
@@ -73,7 +76,7 @@ public class MovimientoP {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 61 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -97,7 +100,9 @@ public class MovimientoP {
 
     @Override
     public String toString() {
-        return "MovimientoP{" + "id=" + id + ", fecha=" + fecha + ", sucursalexterno=" + sucursalexterno + ", producto=" + producto + ", cantidad=" + cantidad + '}';
+        return "DetalleMovimientoP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad + '}';
     }
+
+    
 
 }

@@ -1,6 +1,5 @@
 package dominio;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -8,32 +7,29 @@ import java.util.Objects;
  *
  * @author Comunidad del anillo
  */
-
-public class MovimientoMP //MovimientoMP 
+public class DetallePedidosP //DetallePedidosP
 {
 
     private Integer id;
-    private String tipo;
     private Calendar fecha;
-    private MateriaPrima materiaprima;
+    private SucursalE sucursalexterno;
+    private Producto producto; 
     private int cantidad;
 
-    public MovimientoMP(Integer id, String tipo, Calendar fecha, MateriaPrima materiaprima, int cantidad) {
+    public DetallePedidosP(Integer id, Calendar fecha, SucursalE sucursalexterno, Producto producto, int cantidad) {
         this.id = id;
-        this.tipo = tipo;
         this.fecha = fecha;
-        this.materiaprima = materiaprima;
+        this.sucursalexterno = sucursalexterno;
+        this.producto = producto;
         this.cantidad = cantidad;
     }
 
-    public MovimientoMP(String tipo, Calendar fecha, MateriaPrima materiaprima, int cantidad) {
-        this.tipo = tipo;
+    public DetallePedidosP(Calendar fecha, SucursalE sucursalexterno, Producto producto, int cantidad) {
         this.fecha = fecha;
-        this.materiaprima = materiaprima;
+        this.sucursalexterno = sucursalexterno;
+        this.producto = producto;
         this.cantidad = cantidad;
     }
-
-    
 
     public Integer getId() {
         return id;
@@ -41,14 +37,6 @@ public class MovimientoMP //MovimientoMP
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public Calendar getFecha() {
@@ -59,12 +47,20 @@ public class MovimientoMP //MovimientoMP
         this.fecha = fecha;
     }
 
-    public MateriaPrima getMateriaprima() {
-        return materiaprima;
+    public SucursalE getSucursalexterno() {
+        return sucursalexterno;
     }
 
-    public void setMateriaprima(MateriaPrima materiaprima) {
-        this.materiaprima = materiaprima;
+    public void setSucursalexterno(SucursalE sucursalexterno) {
+        this.sucursalexterno = sucursalexterno;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public int getCantidad() {
@@ -78,7 +74,7 @@ public class MovimientoMP //MovimientoMP
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -93,7 +89,7 @@ public class MovimientoMP //MovimientoMP
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MovimientoMP other = (MovimientoMP) obj;
+        final DetallePedidosP other = (DetallePedidosP) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -102,9 +98,7 @@ public class MovimientoMP //MovimientoMP
 
     @Override
     public String toString() {
-        return "DetalleMovimientoMP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", materiaprima=" + materiaprima + ", cantidad=" + cantidad + '}';
+        return "MovimientoP{" + "id=" + id + ", fecha=" + fecha + ", sucursalexterno=" + sucursalexterno + ", producto=" + producto + ", cantidad=" + cantidad + '}';
     }
-
-    
 
 }

@@ -1,38 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dominio;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Objects;
 
 /**
  *
  * @author Comunidad del anillo
  */
-
 public class DetalleMovimientoMP {
-
     private Integer id;
-    private String tipo;
-    private Calendar fecha;
-    private MateriaPrima materiaprima;
-    private int cantidad;
+    private MovimientoMP movimientomp;
+    private int numMovimiento;
 
-    public DetalleMovimientoMP(Integer id, String tipo, Calendar fecha, MateriaPrima materiaprima, int cantidad) {
+    public DetalleMovimientoMP(MovimientoMP movimientomp, int numMovimiento) {
+        this.movimientomp = movimientomp;
+        this.numMovimiento = numMovimiento;
+    }
+
+    public DetalleMovimientoMP(Integer id, MovimientoMP movimientomp, int numMovimiento) {
         this.id = id;
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.materiaprima = materiaprima;
-        this.cantidad = cantidad;
+        this.movimientomp = movimientomp;
+        this.numMovimiento = numMovimiento;
     }
-
-    public DetalleMovimientoMP(String tipo, Calendar fecha, MateriaPrima materiaprima, int cantidad) {
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.materiaprima = materiaprima;
-        this.cantidad = cantidad;
-    }
-
-    
 
     public Integer getId() {
         return id;
@@ -42,42 +35,26 @@ public class DetalleMovimientoMP {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public MovimientoMP getMovimientomp() {
+        return movimientomp;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setMovimientomp(MovimientoMP movimientomp) {
+        this.movimientomp = movimientomp;
     }
 
-    public Calendar getFecha() {
-        return fecha;
+    public int getNumMovimiento() {
+        return numMovimiento;
     }
 
-    public void setFecha(Calendar fecha) {
-        this.fecha = fecha;
-    }
-
-    public MateriaPrima getMateriaprima() {
-        return materiaprima;
-    }
-
-    public void setMateriaprima(MateriaPrima materiaprima) {
-        this.materiaprima = materiaprima;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setNumMovimiento(int numMovimiento) {
+        this.numMovimiento = numMovimiento;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -101,9 +78,8 @@ public class DetalleMovimientoMP {
 
     @Override
     public String toString() {
-        return "DetalleMovimientoMP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", materiaprima=" + materiaprima + ", cantidad=" + cantidad + '}';
+        return "DetalleMovimientoMP{" + "id=" + id + ", movimientomp=" + movimientomp + ", numMovimiento=" + numMovimiento + '}';
     }
-
     
-
+    
 }

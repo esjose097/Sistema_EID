@@ -1,6 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dominio;
 
-import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -8,29 +12,20 @@ import java.util.Objects;
  * @author Comunidad del anillo
  */
 public class DetalleMovimientoP {
-
     private Integer id;
-    private String tipo;
-    private Calendar fecha;
-    private Producto producto;
-    private int cantidad;
+    private MovimientoP movimientop;
+    private int numMovimiento;
 
-    public DetalleMovimientoP(Integer id, String tipo, Calendar fecha, Producto producto, int cantidad) {
+    public DetalleMovimientoP(MovimientoP movimientop, int numMovimiento) {
+        this.movimientop = movimientop;
+        this.numMovimiento = numMovimiento;
+    }
+
+    public DetalleMovimientoP(Integer id, MovimientoP movimientop, int numMovimiento) {
         this.id = id;
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.producto = producto;
-        this.cantidad = cantidad;
+        this.movimientop = movimientop;
+        this.numMovimiento = numMovimiento;
     }
-
-    public DetalleMovimientoP(String tipo, Calendar fecha, Producto producto, int cantidad) {
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.producto = producto;
-        this.cantidad = cantidad;
-    }
-
-    
 
     public Integer getId() {
         return id;
@@ -40,42 +35,26 @@ public class DetalleMovimientoP {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public MovimientoP getMovimientop() {
+        return movimientop;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setMovimientop(MovimientoP movimientop) {
+        this.movimientop = movimientop;
     }
 
-    public Calendar getFecha() {
-        return fecha;
+    public int getNumMovimiento() {
+        return numMovimiento;
     }
 
-    public void setFecha(Calendar fecha) {
-        this.fecha = fecha;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setNumMovimiento(int numMovimiento) {
+        this.numMovimiento = numMovimiento;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 73 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -99,9 +78,12 @@ public class DetalleMovimientoP {
 
     @Override
     public String toString() {
-        return "DetalleMovimientoP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad + '}';
+        return "DetalleMovimientoP{" + "id=" + id + ", movimientop=" + movimientop + ", numMovimiento=" + numMovimiento + '}';
     }
-
     
-
+    
+    
+    
+    
+    
 }

@@ -12,9 +12,14 @@ import interfaces.IMateriaPrima;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.text.NumberFormatter;
 import placeholder.TextPrompt;
 
 /**
@@ -27,8 +32,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
      * Creates new form MateriaPrima_Entradas_Salidas
      */
     IMateriaPrima Imp;
-    
-    
+
     public MateriaPrima_Entradas_Salidas() {
         initComponents();
         this.Imp = new ControlMateriaPrima();
@@ -63,6 +67,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Entradas y Salidas Materias Primas");
+        setResizable(false);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jButton2.setText("Volver");
@@ -142,6 +147,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         });
 
         SpinnerCantidad.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        SpinnerCantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabelCantidad.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabelCantidad.setText("Cant:");
@@ -184,11 +190,11 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                             .addComponent(rbSalida))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAgregar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelCantidad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SpinnerCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
+                        .addComponent(SpinnerCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,9 +226,9 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(SpinnerCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelCantidad))
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelCantidad)
+                                .addComponent(SpinnerCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnGuardarCambios)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -230,6 +236,10 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         );
 
         new TextPrompt("Buscar...",txtBuscar);
+        SpinnerModel model= new SpinnerNumberModel(1,1,Integer.MAX_VALUE,1);
+        SpinnerCantidad.setModel(model);
+        JFormattedTextField txt = ((JSpinner.NumberEditor) SpinnerCantidad.getEditor()).getTextField();
+        ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -239,7 +249,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         int cant = (int) SpinnerCantidad.getValue();
         DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
         DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
-        
+
         MateriaPrima ex;
         Vector v;
 
@@ -251,31 +261,36 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        borrarLista();
+         int indices = JListListaProvisional.getSelectedIndices().length;
+        if(indices==0){
+            borrarLista();
+        }else{
+            borrarListaSeleccionado();
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
-       boolean option= rbEntrada.getModel().isSelected();
-       ObtenerDatosLista();
-       ArrayList<ExistenciaMp> ex=ObtenerDatosLista();
-       if(option){
-           System.out.println("Entrada");
-           Imp.guardarEntrada(ex);
-       }else{
-           System.out.println("Salida");
-           Imp.guardarSalida(ex);
-       }
-       
-       borrarLista();
+        boolean option = rbEntrada.getModel().isSelected();
+        ObtenerDatosLista();
+        ArrayList<ExistenciaMp> ex = ObtenerDatosLista();
+        if (option) {
+            System.out.println("Entrada");
+            Imp.guardarEntrada(ex);
+        } else {
+            System.out.println("Salida");
+            Imp.guardarSalida(ex);
+        }
+
+        borrarLista();
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       String buscar=txtBuscar.getText();
-       if(buscar.equalsIgnoreCase("")){
-           actualizarTabla();
-       }else{
-           
-       }
+        String buscar = txtBuscar.getText();
+        if (buscar.equalsIgnoreCase("")) {
+            actualizarTabla();
+        } else {
+            buscarA(buscar);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
@@ -334,21 +349,28 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         listmodel.clear();
     }
     
-    public ArrayList<ExistenciaMp> ObtenerDatosLista(){
-        int length = -1;
-        ArrayList<ExistenciaMp> ex=new ArrayList<>();
+    public void borrarListaSeleccionado(){
         DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
-        length= listmodel.size();
+        int[] indices = JListListaProvisional.getSelectedIndices();
+        for (int indice : indices) {
+            listmodel.remove(indice);
+        }
+    }
+
+    public ArrayList<ExistenciaMp> ObtenerDatosLista() {
+        int length = -1;
+        ArrayList<ExistenciaMp> ex = new ArrayList<>();
+        DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
+        length = listmodel.size();
         for (int i = 0; i < length; i++) {
             ex.add(listmodel.elementAt(i));
-         }
-       return ex;
+        }
+        return ex;
     }
-    
-    public void buscarA(String buscar){
-        
+
+    public void buscarA(String buscar) {
+        //TODO: Terminar esta parte de buscar
     }
-    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

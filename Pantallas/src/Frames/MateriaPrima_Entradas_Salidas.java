@@ -19,7 +19,7 @@ import placeholder.TextPrompt;
 
 /**
  *
- * @author Eliu
+ * @author Comunidad del anillo
  */
 public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
 
@@ -33,7 +33,6 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         initComponents();
         this.Imp = new ControlMateriaPrima();
         actualizarTabla();
-
     }
 
     /**
@@ -97,8 +96,13 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         jLabelListaProvisional.setText("Lista Provisional");
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Lupa.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
-        btnGuardarCambios.setBackground(new java.awt.Color(102, 255, 102));
+        btnGuardarCambios.setBackground(new java.awt.Color(0, 204, 102));
         btnGuardarCambios.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnGuardarCambios.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardarCambios.setText("<html>Guardar<br>Cambios</html>");
@@ -262,7 +266,17 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
            Imp.guardarSalida(ex);
        }
        
+       borrarLista();
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+       String buscar=txtBuscar.getText();
+       if(buscar.equalsIgnoreCase("")){
+           actualizarTabla();
+       }else{
+           
+       }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,6 +344,11 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
          }
        return ex;
     }
+    
+    public void buscarA(String buscar){
+        
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

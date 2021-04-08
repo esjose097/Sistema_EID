@@ -23,7 +23,7 @@ public class DAOMovimientoP extends CRUD<MovimientoP> {
     public void guardar(MovimientoP entidad) {
         try {
             Connection conexion = this.getConexion();
-            String sql = "INSERT INTO `tortilleria`.`movimientop` (`producto`, `tipo`, `fecha`, `cantidad`) VALUES (?,?,?,?);";
+            String sql = "INSERT INTO tortilleria.movimientop (producto, tipo, fecha, cantidad) VALUES (?,?,?,?);";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, entidad.getProducto().getId());
             ps.setString(2, entidad.getTipo());           
@@ -129,5 +129,5 @@ public class DAOMovimientoP extends CRUD<MovimientoP> {
         }        
         return mmp;
     }
-
+    
 }

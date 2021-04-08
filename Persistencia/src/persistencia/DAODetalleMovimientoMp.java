@@ -114,7 +114,7 @@ public class DAODetalleMovimientoMp extends CRUD<DetalleMovimientoMP> {
 
         return detalle;
     }
-
+    
     public int numeroMovimientoMasAlto() {
         int masAlto = 0;
         try {

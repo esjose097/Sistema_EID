@@ -128,5 +128,20 @@ public class DAOMovimientoMp extends CRUD<MovimientoMP> {
         
         return MP;
     }
-
+    
+    public int numeroIDMasAlto(){
+        int masAlto = 0;
+        try {
+            Connection conexion = this.getConexion();
+            String sql = "SELECT MAX(idmovimientomp) FROM tortilleria.movimientomp;";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            masAlto = rs.getInt(1);
+            conexion.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return masAlto;
+    }
 }

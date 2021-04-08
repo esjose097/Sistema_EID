@@ -4,8 +4,16 @@
  * and open the template in the editor.
  */
 package Pruebas;
+import dominio.DetalleMovimientoP;
 import dominio.Empleado;
+import dominio.ExistenciaP;
+import dominio.MovimientoMP;
+import dominio.MovimientoP;
+import dominio.Producto;
 import dominio.Sucursal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import persistencia.*;
 
 /**
@@ -21,8 +29,8 @@ public class prueba_Conexion {
        // DAOMateriaPrima dMP = new DAOMateriaPrima();
 //        DAOSucursal dS = new DAOSucursal();
 //        DAOEmpleado dE = new DAOEmpleado();
-//        DAOProducto dP = new DAOProducto();
-//        DAOExistenciaP dEP = new DAOExistenciaP();
+        DAOProducto dP = new DAOProducto();
+        DAOExistenciaP dEP = new DAOExistenciaP();
 //        DAOExistenciaMp dEMP = new DAOExistenciaMp();
 //        
 //        MateriaPrima matP = new MateriaPrima("Harina", "HarinasFPS", "Costales");
@@ -44,7 +52,7 @@ public class prueba_Conexion {
 //        ExistenciaMp emp = new ExistenciaMp(dMP.consultarUno("1"), 200);
 //        dEMP.guardar(emp);
     
-    //DAOMovimientoMp dmp=new DAOMovimientoMp();
+//    DAOMovimientoMp dmp=new DAOMovimientoMp();
     //MateriaPrima mp= dMP.consultarUno("2");
     //dmp.actualizar(new MovimientoMP("Entrada", new GregorianCalendar(),mp , 100));
 //   ArrayList<MovimientoMP> mat= dmp.consultarTodos();
@@ -62,14 +70,20 @@ public class prueba_Conexion {
 //       dmp.consultarTodos().forEach((elemento) -> {
 //           System.out.println(elemento);
 //       });
-
-        DAOEmpleado demp = new DAOEmpleado();
-        DAOSucursal dsuc = new DAOSucursal();
-        Sucursal sucursal = dsuc.consultarUno("1");
-        Empleado  emp = new Empleado("pedro", "pedrox", "pedro123", "conserje", sucursal);
-        
-        demp.guardar(emp);
-        
+//
+//        DAOEmpleado demp = new DAOEmpleado();
+//        DAOSucursal dsuc = new DAOSucursal();
+//        Sucursal sucursal = dsuc.consultarUno("1");
+//        Empleado  emp = new Empleado("pedro", "pedrox", "pedro123", "conserje", sucursal);
+//        
+//        demp.guardar(emp);
+//          DAODetalleMovimientoP pss=new DAODetalleMovimientoP();
+//          Producto p = new Producto(1,"Random", "Tipo", "Unidad");
+//          ExistenciaP ep= new ExistenciaP(1, p, 5);
+//          MovimientoP mp= new MovimientoP(1, "Entrada", new GregorianCalendar(), p, 5);
+//          DetalleMovimientoP dmp=new DetalleMovimientoP(1, mp, 1);
+//          
+//          pss.guardar(dmp);
         
     }
     

@@ -37,4 +37,7 @@ public interface IMateriaPrima {
    public void guardarSalida(ArrayList<ExistenciaMp> Existencia);
 
    public ArrayList<ListaPedidosMat> ObtenerListaPedidosMat();
+   
+   public ArrayList<MateriaPrima> buscarMateria(String buscar);
+   
 }

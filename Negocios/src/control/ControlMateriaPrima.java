@@ -1,16 +1,22 @@
 package control;
 
+import dominio.DetalleMovimientoMP;
 import dominio.Empleado;
 import dominio.ExistenciaMp;
 import dominio.ListaPedidosMat;
 import dominio.MateriaPrima;
+import dominio.MovimientoMP;
 import interfaces.IMateriaPrima;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import persistencia.CRUD;
+import persistencia.DAODetalleMovimientoMp;
 import persistencia.DAOEmpleado;
 import persistencia.DAOExistenciaMp;
 import persistencia.DAOListaPedidosMat;
 import persistencia.DAOMateriaPrima;
+import persistencia.DAOMovimientoMp;
 
 /**
  *
@@ -85,49 +91,86 @@ public class ControlMateriaPrima implements IMateriaPrima {
 
     @Override
     public void guardarEntrada(ArrayList<ExistenciaMp> Existencia) {
-        
         DAOExistenciaMp crudextra = new DAOExistenciaMp();
-        ExistenciaMp ex;
-        
+        DAOMovimientoMp crudMMP = new DAOMovimientoMp();
+        DAODetalleMovimientoMp crudDMMP = new DAODetalleMovimientoMp();
+
+        ExistenciaMp ex = null;
+        MovimientoMP mmp = null;
+        DetalleMovimientoMP dmmp = null;
+        Calendar fecha = new GregorianCalendar();
+        int ultimoNumMov = crudDMMP.numeroMovimientoMasAlto() + 1;
+        int ultimoID = -1;
+
         for (ExistenciaMp existenciaMp : Existencia) {
+            //Si no esta registrada la existenciaMP en la BD
             if (!crudextra.existeExistenciaMP(existenciaMp.getMateriaprima().getNombre())) {
+                ultimoID = crudMMP.numeroIDMasAlto() + 1;
                 crudextra.guardar(existenciaMp);
-                //crudMovimientoMP
-                //crudExistenciaMovimientoMP
-            } else {
-               ex = (ExistenciaMp) crudextra.consultarUno(existenciaMp.getMateriaprima().getNombre());
-                   ex.setCantidad(ex.getCantidad() + existenciaMp.getCantidad());
-                  crudextra.actualizar(ex);
+                mmp = new MovimientoMP(ultimoID, "Entrada", fecha, existenciaMp.getMateriaprima(), existenciaMp.getCantidad());
+                crudMMP.guardar(mmp);
+                dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov);
+                crudDMMP.guardar(dmmp);
+            } //Si esta registrada la existenciaMP en la BD
+            else {
+                ultimoID = crudMMP.numeroIDMasAlto() + 1;
+                ex = (ExistenciaMp) crudextra.consultarUno(existenciaMp.getMateriaprima().getNombre());
+                ex.setCantidad(ex.getCantidad() + existenciaMp.getCantidad());
+                crudextra.actualizar(ex);
+                mmp = new MovimientoMP(ultimoID, "Entrada", fecha, existenciaMp.getMateriaprima(), existenciaMp.getCantidad());
+                crudMMP.guardar(mmp);
+                dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov);
+                crudDMMP.guardar(dmmp);
             }
-
         }
-
     }
 
     @Override
     public ArrayList<ExistenciaMp> ObtenerExistencia() {
         crud = new DAOExistenciaMp();
-
         return crud.consultarTodos();
     }
 
     @Override
     public void guardarSalida(ArrayList<ExistenciaMp> Existencia) {
         DAOExistenciaMp crudextra = new DAOExistenciaMp();
-        ExistenciaMp ex;
-        
-        for (ExistenciaMp existenciaMp : Existencia) {
-               ex = (ExistenciaMp) crudextra.consultarUno(existenciaMp.getMateriaprima().getNombre());
-                   ex.setCantidad(ex.getCantidad() - existenciaMp.getCantidad());
-                  crudextra.actualizar(ex);
-        }
+        DAOMovimientoMp crudMMP = new DAOMovimientoMp();
+        DAODetalleMovimientoMp crudDMMP = new DAODetalleMovimientoMp();
 
+        ExistenciaMp ex = null;
+        MovimientoMP mmp = null;
+        DetalleMovimientoMP dmmp = null;
+        Calendar fecha = new GregorianCalendar();
+        int ultimoNumMov = crudDMMP.numeroMovimientoMasAlto() + 1;
+        int ultimoID = -1;
+
+        for (ExistenciaMp existenciaMp : Existencia) {
+            ultimoID = crudMMP.numeroIDMasAlto() + 1;
+            ex = (ExistenciaMp) crudextra.consultarUno(existenciaMp.getMateriaprima().getNombre());
+            ex.setCantidad(ex.getCantidad() - existenciaMp.getCantidad());
+            if (ex.getCantidad() > 0) {
+                crudextra.actualizar(ex);
+            } else {
+                // Lo borrara o lo actualizara, no se decide
+                ex.setCantidad(0);
+                crudextra.actualizar(ex);
+            }
+            mmp = new MovimientoMP(ultimoID, "Salida", fecha, existenciaMp.getMateriaprima(), existenciaMp.getCantidad());
+            crudMMP.guardar(mmp);
+            dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov);
+            crudDMMP.guardar(dmmp);
+        }
     }
 
     @Override
     public ArrayList<ListaPedidosMat> ObtenerListaPedidosMat() {
         crud = new DAOListaPedidosMat();
         return crud.consultarTodos();
+    }
+
+    @Override
+    public ArrayList<MateriaPrima> buscarMateria(String buscar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

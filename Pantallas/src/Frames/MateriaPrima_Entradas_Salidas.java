@@ -367,9 +367,38 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         }
         return ex;
     }
+/*
+    Este buscar es provisional, si no le gusta a la banda haremos otro con una sentencia
+    sql
+*/
+    public void buscarA(String buscar) {        
+        ArrayList<MateriaPrima> listaCompleta = this.Imp.ObtenerMateriaPrima();
+        ArrayList<MateriaPrima> listaBusqueda = new ArrayList<>();
+        for(MateriaPrima mp : listaCompleta)
+        {
+            String id = mp.getId()+"";
+            if(mp.getNombre().equalsIgnoreCase(buscar) || mp.getDistribuidora().equalsIgnoreCase(buscar)
+                    || mp.getUnidad().equalsIgnoreCase(buscar) || id.equalsIgnoreCase(buscar))           
+            {
+                listaBusqueda.add(mp);
+            }
+        }
+        if(listaBusqueda.size() > 0)
+        {
+            borrarTabla();
+            DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
 
-    public void buscarA(String buscar) {
-        //TODO: Terminar esta parte de buscar
+            for (MateriaPrima materiaPrima : listaBusqueda) 
+            {
+                model.addRow(new Object[]{materiaPrima.getId(), materiaPrima.getNombre(),
+                materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
+            }
+        }
+        else
+        {
+            /*Aquí deberia ir un mensaje de error pero eso será ya que hagamos las
+            pruebas jajajaja*/
+        }
     }
     
 

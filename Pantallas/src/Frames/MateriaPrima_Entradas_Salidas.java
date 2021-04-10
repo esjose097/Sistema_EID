@@ -43,6 +43,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         initComponents();
         this.Imp = new ControlMateriaPrima();
         actualizarTabla();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -357,6 +358,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MateriaPrima_Entradas_Salidas().setVisible(true);
+                
             }
         });
     }

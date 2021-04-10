@@ -168,9 +168,4 @@ public class ControlMateriaPrima implements IMateriaPrima {
         return crud.consultarTodos();
     }
 
-    @Override
-    public ArrayList<MateriaPrima> buscarMateria(String buscar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

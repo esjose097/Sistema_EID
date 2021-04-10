@@ -38,6 +38,5 @@ public interface IMateriaPrima {
 
    public ArrayList<ListaPedidosMat> ObtenerListaPedidosMat();
    
-   public ArrayList<MateriaPrima> buscarMateria(String buscar);
    
 }

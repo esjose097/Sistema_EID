@@ -9,12 +9,17 @@ import control.ControlMateriaPrima;
 import dominio.ExistenciaMp;
 import dominio.MateriaPrima;
 import interfaces.IMateriaPrima;
+import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
@@ -64,6 +69,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         jLabelCantidad = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         JListListaProvisional = new javax.swing.JList<>();
+        btnVerExistencias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Entradas y Salidas Materias Primas");
@@ -156,24 +162,35 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         );
         jScrollPane3.setViewportView(JListListaProvisional);
 
+        btnVerExistencias.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        btnVerExistencias.setText("Existencias");
+        btnVerExistencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerExistenciasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabelListaProvisional))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnEliminar)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(38, 38, 38)
+                            .addComponent(jLabelListaProvisional))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVerExistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -202,7 +219,9 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVerExistencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelListaProvisional)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -221,7 +240,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addComponent(rbSalida)))
-                        .addGap(0, 12, Short.MAX_VALUE))
+                        .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,10 +280,10 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-         int indices = JListListaProvisional.getSelectedIndices().length;
-        if(indices==0){
+        int indices = JListListaProvisional.getSelectedIndices().length;
+        if (indices == 0) {
             borrarLista();
-        }else{
+        } else {
             borrarListaSeleccionado();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -292,6 +311,19 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
             buscarA(buscar);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnVerExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerExistenciasActionPerformed
+        List<ExistenciaMp> existencias = Imp.ObtenerExistencia();
+        JTable pop = fTablaExistencias();
+
+        DefaultTableModel model = (DefaultTableModel) pop.getModel();
+        
+        for (ExistenciaMp ex : existencias) {
+            String unidad= pluralizador(ex.getMateriaprima().getUnidad());
+            model.addRow(new Object[]{ex.getId(), ex.getMateriaprima().getNombre(), ex.getCantidad() + " " + unidad});
+        }
+        JOptionPane.showMessageDialog(null, new JScrollPane(pop), "Existencias", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_btnVerExistenciasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,8 +380,8 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
         listmodel.clear();
     }
-    
-    public void borrarListaSeleccionado(){
+
+    public void borrarListaSeleccionado() {
         DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
         int[] indices = JListListaProvisional.getSelectedIndices();
         for (int indice : indices) {
@@ -367,40 +399,59 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         }
         return ex;
     }
-/*
+
+    /*
     Este buscar es provisional, si no le gusta a la banda haremos otro con una sentencia
     sql
-*/
-    public void buscarA(String buscar) {        
+     */
+    public void buscarA(String buscar) {
         ArrayList<MateriaPrima> listaCompleta = this.Imp.ObtenerMateriaPrima();
         ArrayList<MateriaPrima> listaBusqueda = new ArrayList<>();
-        for(MateriaPrima mp : listaCompleta)
-        {
-            String id = mp.getId()+"";
-            if(mp.getNombre().equalsIgnoreCase(buscar) || mp.getDistribuidora().equalsIgnoreCase(buscar)
-                    || mp.getUnidad().equalsIgnoreCase(buscar) || id.equalsIgnoreCase(buscar))           
-            {
+        for (MateriaPrima mp : listaCompleta) {
+            String id = mp.getId() + "";
+            if (mp.getNombre().equalsIgnoreCase(buscar) || mp.getDistribuidora().equalsIgnoreCase(buscar)
+                    || mp.getUnidad().equalsIgnoreCase(buscar) || id.equalsIgnoreCase(buscar)) {
                 listaBusqueda.add(mp);
             }
         }
-        if(listaBusqueda.size() > 0)
-        {
+        if (listaBusqueda.size() > 0) {
             borrarTabla();
             DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
 
-            for (MateriaPrima materiaPrima : listaBusqueda) 
-            {
+            for (MateriaPrima materiaPrima : listaBusqueda) {
                 model.addRow(new Object[]{materiaPrima.getId(), materiaPrima.getNombre(),
-                materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
+                    materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
             }
-        }
-        else
-        {
+        } else {
             /*Aquí deberia ir un mensaje de error pero eso será ya que hagamos las
             pruebas jajajaja*/
         }
     }
+
+    public JTable fTablaExistencias() {
+        JTable table = new JTable();
+        table.setFont(new Font("Tahoma", 0, 13));
+        table.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"ID", "Nombre", "Cantidad"}
+        ));
+        return table;
+    }
     
+    public String pluralizador(String singular){
+        String plural="";
+        char ultimo= singular.charAt(singular.length()-1);
+        
+        boolean vocal= ((1<<ultimo) &2130466) != 0;
+        
+        if(vocal){
+            plural = singular.concat("s");
+        }else{
+            plural = singular.concat("es");
+        }
+        return plural;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<ExistenciaMp> JListListaProvisional;
@@ -409,6 +460,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardarCambios;
+    private javax.swing.JButton btnVerExistencias;
     private javax.swing.ButtonGroup buttonGroupModo;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabelCantidad;

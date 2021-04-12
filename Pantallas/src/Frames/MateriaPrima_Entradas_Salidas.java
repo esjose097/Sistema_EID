@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.JTable;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -44,6 +44,8 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         this.Imp = new ControlMateriaPrima();
         actualizarTabla();
         this.setLocationRelativeTo(null);
+        ((DefaultEditor) this.SpinnerCantidad.getEditor()).getTextField().setEditable(false);
+
     }
 
     /**
@@ -92,9 +94,16 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tableInventario);
@@ -185,14 +194,14 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(38, 38, 38)
-                            .addComponent(jLabelListaProvisional))
-                        .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVerExistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnVerExistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabelListaProvisional)))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -223,9 +232,9 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVerExistencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelListaProvisional)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelListaProvisional)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -253,7 +262,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnGuardarCambios)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(21, Short.MAX_VALUE))))
         );
 
         new TextPrompt("Buscar...",txtBuscar);
@@ -268,41 +277,90 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         int[] indexs = tableInventario.getSelectedRows();
         int cant = (int) SpinnerCantidad.getValue();
-        DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
-        DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
+        if (indexs.length != 0) 
+        {
+            DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
+            DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
 
-        MateriaPrima ex;
-        Vector v;
-
-        for (int index : indexs) {
-            v = model.getDataVector().elementAt(index);
-            ex = new MateriaPrima((int) v.get(0), (String) v.get(1), (String) v.get(2), (String) v.get(3));
-            listmodel.addElement(new ExistenciaMp(ex, cant));
+            MateriaPrima ex;
+            Vector v;
+            int indexList = 0;            
+            for (int index : indexs) {
+                v = model.getDataVector().elementAt(index);
+                ex = new MateriaPrima((int) v.get(0), (String) v.get(1), (String) v.get(2), (String) v.get(3));
+                int datos[] = this.compruebaRepetido(ex, cant);
+                if(datos[2] == 1)
+                {   
+                    
+                    listmodel.set(datos[1],
+                            (new ExistenciaMp(ex, datos[0])));
+                }
+                else
+                {
+                listmodel.addElement(new ExistenciaMp(ex, cant));
+                }
+            }
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun elemento,"
+                    + " porfavor seleccione por lo menos un elemento de la tabla y presione"
+                    + " el boton agregar", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private int[] compruebaRepetido(MateriaPrima ex, int cant) {
+        int [] datos = new int[3];
+        int banderaNumerica = -1;
+        int indexList = 0;
+        int nuevaCantidad = cant;
+        for (ExistenciaMp el : this.obtenerDatosLista())
+        {
+            if (el.getMateriaprima().getNombre().equals(ex.getNombre())) 
+            {
+                nuevaCantidad += el.getCantidad();
+                banderaNumerica = 1;
+                break;
+            }
+            indexList += 1;
+        }
+        datos[0] = nuevaCantidad;
+        datos[1] = indexList;
+        datos[2] = banderaNumerica;
+        
+        return datos;
+    }
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int indices = JListListaProvisional.getSelectedIndices().length;
-        if (indices == 0) {
-            borrarLista();
+        if (this.obtenerDatosLista().size() > 0) {
+            if (indices == 0) {
+                borrarLista();
+            } else {
+                borrarListaSeleccionado();
+            }
         } else {
-            borrarListaSeleccionado();
+            JOptionPane.showMessageDialog(this, "Lista vacía.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
         boolean option = rbEntrada.getModel().isSelected();
-        ObtenerDatosLista();
-        ArrayList<ExistenciaMp> ex = ObtenerDatosLista();
-        if (option) {
-            System.out.println("Entrada");
-            Imp.guardarEntrada(ex);
+        obtenerDatosLista();
+        ArrayList<ExistenciaMp> ex = obtenerDatosLista();
+        if (ex.size() > 0) {
+            if (option) {
+                System.out.println("Entrada");
+                Imp.guardarEntrada(ex);
+            } else {
+                System.out.println("Salida");
+                Imp.guardarSalida(ex);
+            }
+            borrarLista();
         } else {
-            System.out.println("Salida");
-            Imp.guardarSalida(ex);
+            JOptionPane.showMessageDialog(this, "La lista provisional esta vacía, porfavor"
+                    + " recuerde seleccionar por lo menos un elemento de la tabla y agregarlo"
+                    + " a la lista antes de guardar los cambios.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        borrarLista();
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -319,9 +377,9 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         JTable pop = fTablaExistencias();
 
         DefaultTableModel model = (DefaultTableModel) pop.getModel();
-        
+
         for (ExistenciaMp ex : existencias) {
-            String unidad= pluralizador(ex.getMateriaprima().getUnidad());
+            String unidad = pluralizador(ex.getMateriaprima().getUnidad());
             model.addRow(new Object[]{ex.getId(), ex.getMateriaprima().getNombre(), ex.getCantidad() + " " + unidad});
         }
         JOptionPane.showMessageDialog(null, new JScrollPane(pop), "Existencias", JOptionPane.PLAIN_MESSAGE);
@@ -358,7 +416,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MateriaPrima_Entradas_Salidas().setVisible(true);
-                
+
             }
         });
     }
@@ -392,7 +450,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         }
     }
 
-    public ArrayList<ExistenciaMp> ObtenerDatosLista() {
+    public ArrayList<ExistenciaMp> obtenerDatosLista() {
         int length = -1;
         ArrayList<ExistenciaMp> ex = new ArrayList<>();
         DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
@@ -426,8 +484,10 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                     materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
             }
         } else {
-            /*Aquí deberia ir un mensaje de error pero eso será ya que hagamos las
-            pruebas jajajaja*/
+            JOptionPane.showMessageDialog(this, "No se ha encontrado ninguna coincidencia,"
+                    + " por favor verifique sus datos",
+                    "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+            this.txtBuscar.setText("");
         }
     }
 
@@ -440,16 +500,16 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         ));
         return table;
     }
-    
-    public String pluralizador(String singular){
-        String plural="";
-        char ultimo= singular.charAt(singular.length()-1);
-        
-        boolean vocal= ((1<<ultimo) &2130466) != 0;
-        
-        if(vocal){
+
+    public String pluralizador(String singular) {
+        String plural = "";
+        char ultimo = singular.charAt(singular.length() - 1);
+
+        boolean vocal = ((1 << ultimo) & 2130466) != 0;
+
+        if (vocal) {
             plural = singular.concat("s");
-        }else{
+        } else {
             plural = singular.concat("es");
         }
         return plural;

@@ -23,10 +23,11 @@ public class DAODetalleMovimientoMp extends CRUD<DetalleMovimientoMP> {
     public void guardar(DetalleMovimientoMP entidad) {
         try {
             Connection conexion = this.getConexion();
-            String sql = "INSERT INTO tortilleria.detallemovimientomp (movimientomp, nummovimiento) VALUES (?, ?);";
+            String sql = "INSERT INTO tortilleria.detallemovimientomp (movimientomp, nummovimiento, cantidad) VALUES (?, ?, ?);";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, entidad.getMovimientomp().getId());
             ps.setInt(2, entidad.getNumMovimiento());
+            ps.setInt(3, entidad.getCantidad());
             ps.executeUpdate();
             conexion.close();
         } catch (SQLException ex) {
@@ -38,11 +39,12 @@ public class DAODetalleMovimientoMp extends CRUD<DetalleMovimientoMP> {
     public void actualizar(DetalleMovimientoMP entidad) {
         try {
             Connection conexion = this.getConexion();
-            String sql = "UPDATE tortilleria.detallemovimientomp SET movimientomp = ?, nummovimiento = ? WHERE (iddetallemovimientomp = ?);";
+            String sql = "UPDATE tortilleria.detallemovimientomp SET movimientomp = ?, nummovimiento = ?, cantidad = ? WHERE (iddetallemovimientomp = ?);";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, entidad.getMovimientomp().getId());
             ps.setInt(2, entidad.getNumMovimiento());
-            ps.setInt(3, entidad.getId());
+            ps.setInt(3, entidad.getCantidad());
+            ps.setInt(4, entidad.getId());
             ps.executeUpdate();
             conexion.close();
         } catch (SQLException ex) {
@@ -79,7 +81,8 @@ public class DAODetalleMovimientoMp extends CRUD<DetalleMovimientoMP> {
                 int id = rs.getInt(1);
                 MovimientoMP movimiento = mp.consultarUno(rs.getInt(2) + "");
                 int num = rs.getInt(3);
-                listMP.add(new DetalleMovimientoMP(id, movimiento, num));
+                int cant = rs.getInt(4);
+                listMP.add(new DetalleMovimientoMP(id, movimiento, num,cant));
             }
 
             conexion.close();
@@ -105,7 +108,8 @@ public class DAODetalleMovimientoMp extends CRUD<DetalleMovimientoMP> {
             int id = rs.getInt(1);
             MovimientoMP movimiento = mp.consultarUno(rs.getInt(2) + "");
             int num = rs.getInt(3);
-            detalle = new DetalleMovimientoMP(id, movimiento, num);
+            int cant = rs.getInt(4);
+            detalle = new DetalleMovimientoMP(id, movimiento, num,cant);
 
             conexion.close();
         } catch (SQLException ex) {

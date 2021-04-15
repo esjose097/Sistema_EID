@@ -16,21 +16,18 @@ public class MovimientoMP //MovimientoMP
     private String tipo;
     private Calendar fecha;
     private MateriaPrima materiaprima;
-    private int cantidad;
 
-    public MovimientoMP(Integer id, String tipo, Calendar fecha, MateriaPrima materiaprima, int cantidad) {
+    public MovimientoMP(Integer id, String tipo, Calendar fecha, MateriaPrima materiaprima) {
         this.id = id;
         this.tipo = tipo;
         this.fecha = fecha;
         this.materiaprima = materiaprima;
-        this.cantidad = cantidad;
     }
 
-    public MovimientoMP(String tipo, Calendar fecha, MateriaPrima materiaprima, int cantidad) {
+    public MovimientoMP(String tipo, Calendar fecha, MateriaPrima materiaprima) {
         this.tipo = tipo;
         this.fecha = fecha;
         this.materiaprima = materiaprima;
-        this.cantidad = cantidad;
     }
 
     
@@ -67,13 +64,6 @@ public class MovimientoMP //MovimientoMP
         this.materiaprima = materiaprima;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 
     @Override
     public int hashCode() {
@@ -102,7 +92,7 @@ public class MovimientoMP //MovimientoMP
 
     @Override
     public String toString() {
-        return "DetalleMovimientoMP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", materiaprima=" + materiaprima + ", cantidad=" + cantidad + '}';
+        return "DetalleMovimientoMP{" + "id=" + id + ", tipo=" + tipo + ", fecha=" + fecha + ", materiaprima=" + materiaprima + '}';
     }
 
     

@@ -15,16 +15,19 @@ public class DetalleMovimientoMP {
     private Integer id;
     private MovimientoMP movimientomp;
     private int numMovimiento;
+    private int cantidad;
 
-    public DetalleMovimientoMP(MovimientoMP movimientomp, int numMovimiento) {
+    public DetalleMovimientoMP(MovimientoMP movimientomp, int numMovimiento, int cantidad) {
         this.movimientomp = movimientomp;
         this.numMovimiento = numMovimiento;
+        this.cantidad = cantidad;
     }
 
-    public DetalleMovimientoMP(Integer id, MovimientoMP movimientomp, int numMovimiento) {
+    public DetalleMovimientoMP(Integer id, MovimientoMP movimientomp, int numMovimiento, int cantidad) {
         this.id = id;
         this.movimientomp = movimientomp;
         this.numMovimiento = numMovimiento;
+        this.cantidad = cantidad;
     }
 
     public Integer getId() {
@@ -50,6 +53,15 @@ public class DetalleMovimientoMP {
     public void setNumMovimiento(int numMovimiento) {
         this.numMovimiento = numMovimiento;
     }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -78,8 +90,10 @@ public class DetalleMovimientoMP {
 
     @Override
     public String toString() {
-        return "DetalleMovimientoMP{" + "id=" + id + ", movimientomp=" + movimientomp + ", numMovimiento=" + numMovimiento + '}';
+        return "DetalleMovimientoMP{" + "id=" + id + ", movimientomp=" + movimientomp + ", numMovimiento=" + numMovimiento + ", cantidad=" + cantidad + '}';
     }
+
+    
     
     
 }

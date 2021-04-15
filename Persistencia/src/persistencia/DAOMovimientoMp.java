@@ -21,14 +21,13 @@ public class DAOMovimientoMp extends CRUD<MovimientoMP> {
     public void guardar(MovimientoMP entidad) {
         try {
             Connection conexion = this.getConexion();
-            String sql = "INSERT INTO tortilleria.movimientomp (materiaprima, tipo, fecha, cantidad) VALUES (?,?,?,?);";
+            String sql = "INSERT INTO tortilleria.movimientomp (materiaprima, tipo, fecha) VALUES (?,?,?);";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, entidad.getMateriaprima().getId());
             ps.setString(2, entidad.getTipo());
            
             java.sql.Date date = new Date(entidad.getFecha().getTimeInMillis());
             ps.setDate(3, date);
-            ps.setInt(4, entidad.getCantidad());
             ps.executeUpdate();
             conexion.close();
         } catch (SQLException ex) {
@@ -41,15 +40,14 @@ public class DAOMovimientoMp extends CRUD<MovimientoMP> {
     public void actualizar(MovimientoMP entidad) {
         try {
             Connection conexion = this.getConexion();
-            String sql = "UPDATE tortilleria.movimientomp SET materiaprima = ?, tipo = ?, fecha = ?, cantidad = ? WHERE (idmovimientomp = ?);";
+            String sql = "UPDATE tortilleria.movimientomp SET materiaprima = ?, tipo = ?, fecha = ? WHERE (idmovimientomp = ?);";
             PreparedStatement ps = conexion.prepareStatement(sql);
 
             ps.setInt(1, entidad.getMateriaprima().getId());
             ps.setString(2, entidad.getTipo());
             java.sql.Date date = new Date(entidad.getFecha().getTimeInMillis());
             ps.setDate(3, date);
-            ps.setInt(4, entidad.getCantidad());
-            ps.setInt(5, entidad.getId());
+            ps.setInt(4, entidad.getId());
             ps.executeUpdate();
             conexion.close();
         } catch (SQLException ex) {
@@ -88,8 +86,7 @@ public class DAOMovimientoMp extends CRUD<MovimientoMP> {
                 String tipo = rs.getString(3);
                 Calendar fecha = new GregorianCalendar();
                 fecha.setTime(rs.getDate(4));
-                int cant = rs.getInt(5);
-                listMov.add(new MovimientoMP(id, tipo, fecha, materiaPrima, cant));
+                listMov.add(new MovimientoMP(id, tipo, fecha, materiaPrima));
             }
 
             conexion.close();
@@ -118,8 +115,7 @@ public class DAOMovimientoMp extends CRUD<MovimientoMP> {
                 String tipo = rs.getString(3);
                 Calendar fecha = new GregorianCalendar();
                 fecha.setTime(rs.getDate(4));
-                int cant = rs.getInt(5);
-                MP = new MovimientoMP(id, tipo, fecha, materiaPrima, cant);
+                MP = new MovimientoMP(id, tipo, fecha, materiaPrima);
 
             conexion.close();
         } catch (SQLException ex) {

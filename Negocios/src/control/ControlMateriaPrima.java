@@ -107,9 +107,9 @@ public class ControlMateriaPrima implements IMateriaPrima {
             if (!crudextra.existeExistenciaMP(existenciaMp.getMateriaprima().getNombre())) {
                 ultimoID = crudMMP.numeroIDMasAlto() + 1;
                 crudextra.guardar(existenciaMp);
-                mmp = new MovimientoMP(ultimoID, "Entrada", fecha, existenciaMp.getMateriaprima(), existenciaMp.getCantidad());
+                mmp = new MovimientoMP(ultimoID, "Entrada", fecha, existenciaMp.getMateriaprima());
                 crudMMP.guardar(mmp);
-                dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov);
+                dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov, existenciaMp.getCantidad());
                 crudDMMP.guardar(dmmp);
             } //Si esta registrada la existenciaMP en la BD
             else {
@@ -117,9 +117,9 @@ public class ControlMateriaPrima implements IMateriaPrima {
                 ex = (ExistenciaMp) crudextra.consultarUno(existenciaMp.getMateriaprima().getNombre());
                 ex.setCantidad(ex.getCantidad() + existenciaMp.getCantidad());
                 crudextra.actualizar(ex);
-                mmp = new MovimientoMP(ultimoID, "Entrada", fecha, existenciaMp.getMateriaprima(), existenciaMp.getCantidad());
+                mmp = new MovimientoMP(ultimoID, "Entrada", fecha, existenciaMp.getMateriaprima());
                 crudMMP.guardar(mmp);
-                dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov);
+                dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov, existenciaMp.getCantidad());
                 crudDMMP.guardar(dmmp);
             }
         }
@@ -155,9 +155,9 @@ public class ControlMateriaPrima implements IMateriaPrima {
                 ex.setCantidad(0);
                 crudextra.actualizar(ex);
             }
-            mmp = new MovimientoMP(ultimoID, "Salida", fecha, existenciaMp.getMateriaprima(), existenciaMp.getCantidad());
+            mmp = new MovimientoMP(ultimoID, "Salida", fecha, existenciaMp.getMateriaprima());
             crudMMP.guardar(mmp);
-            dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov);
+            dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov,existenciaMp.getCantidad());
             crudDMMP.guardar(dmmp);
         }
     }

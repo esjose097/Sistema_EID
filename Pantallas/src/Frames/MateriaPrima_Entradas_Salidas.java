@@ -277,7 +277,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         int[] indexs = tableInventario.getSelectedRows();
         int cant = (int) SpinnerCantidad.getValue();
-        if (indexs.length != 0) 
+        if (indexs.length != 0)
         {
             DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
             DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
@@ -351,9 +351,11 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
             if (option) {
                 System.out.println("Entrada");
                 Imp.guardarEntrada(ex);
+                JOptionPane.showMessageDialog(this, "Entrada guardada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 System.out.println("Salida");
                 Imp.guardarSalida(ex);
+                JOptionPane.showMessageDialog(this, "Salida guardada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             }
             borrarLista();
         } else {

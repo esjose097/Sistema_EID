@@ -136,6 +136,7 @@ public class DAOMateriaPrima extends CRUD<MateriaPrima> {
                 MateriaPrima matP = new MateriaPrima(id, nombre, distribuidora, unidad);
                 materias.add(matP);
             }
+            conexion.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -34,9 +34,6 @@ import placeholder.TextPrompt;
  */
 public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MateriaPrima_Entradas_Salidas
-     */
     IMateriaPrima Imp;
 
     public MateriaPrima_Entradas_Salidas() {
@@ -58,7 +55,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupModo = new javax.swing.ButtonGroup();
-        jButton2 = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableInventario = new javax.swing.JTable();
         jLabelListaProvisional = new javax.swing.JLabel();
@@ -75,12 +72,22 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         JListListaProvisional = new javax.swing.JList<>();
         btnVerExistencias = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Entradas y Salidas Materias Primas");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jButton2.setText("Volver");
+        btnVolver.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         tableInventario.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         tableInventario.setModel(new javax.swing.table.DefaultTableModel(
@@ -187,17 +194,16 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnEliminar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVolver, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnVerExistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
@@ -229,7 +235,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnVolver)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVerExistencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -389,6 +395,16 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, new JScrollPane(pop), "Existencias", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btnVerExistenciasActionPerformed
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+         new Menu().setVisible(true);
+         this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -522,8 +538,8 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardarCambios;
     private javax.swing.JButton btnVerExistencias;
+    private javax.swing.JButton btnVolver;
     private javax.swing.ButtonGroup buttonGroupModo;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabelCantidad;
     private javax.swing.JLabel jLabelListaProvisional;
     private javax.swing.JScrollPane jScrollPane1;

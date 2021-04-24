@@ -173,6 +173,9 @@
               <Image iconType="3" name="/Recursos/Harina.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMateriaPrimaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProducto">
           <Properties>
@@ -201,6 +204,9 @@
               <Image iconType="3" name="/Recursos/FlechasYHarina.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEntrada_Salida_MateriaPrimaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEntrada_Salida_Producto">
           <Properties>

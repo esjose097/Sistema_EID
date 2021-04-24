@@ -57,6 +57,11 @@ public class Menu extends javax.swing.JFrame {
         jLabelMenu.setText("Menú");
 
         btnMateriaPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Harina.png"))); // NOI18N
+        btnMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMateriaPrimaActionPerformed(evt);
+            }
+        });
 
         btnProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Tortillas.png"))); // NOI18N
 
@@ -65,6 +70,11 @@ public class Menu extends javax.swing.JFrame {
         btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Reporte.png"))); // NOI18N
 
         btnEntrada_Salida_MateriaPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/FlechasYHarina.png"))); // NOI18N
+        btnEntrada_Salida_MateriaPrima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrada_Salida_MateriaPrimaActionPerformed(evt);
+            }
+        });
 
         btnEntrada_Salida_Producto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/FlechasYTortillas.png"))); // NOI18N
 
@@ -203,6 +213,15 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMateriaPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMateriaPrimaActionPerformed
+        // TO DO:   
+    }//GEN-LAST:event_btnMateriaPrimaActionPerformed
+
+    private void btnEntrada_Salida_MateriaPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrada_Salida_MateriaPrimaActionPerformed
+       new MateriaPrima_Entradas_Salidas().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnEntrada_Salida_MateriaPrimaActionPerformed
 
     /**
      * @param args the command line arguments

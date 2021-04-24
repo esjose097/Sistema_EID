@@ -40,4 +40,6 @@ public interface IMateriaPrima {
    
    public ArrayList<ExistenciaMp> verificarExistencias(ArrayList<ExistenciaMp> existencia);
    
+   public ArrayList<MateriaPrima> obtenerListaPorPatron(String textoPatron);
+   
 }

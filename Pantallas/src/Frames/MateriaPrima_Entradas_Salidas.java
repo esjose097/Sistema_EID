@@ -383,8 +383,8 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) pop.getModel();
 
         for (ExistenciaMp ex : existencias) {
-            String unidad = pluralizador(ex.getMateriaprima().getUnidad());
-            model.addRow(new Object[]{ex.getId(), ex.getMateriaprima().getNombre(), ex.getCantidad() + " " + unidad});
+            //String unidad = pluralizador(ex.getMateriaprima().getUnidad());
+            model.addRow(new Object[]{ex.getId(), ex.getMateriaprima().getNombre(), ex.getCantidad() + " " + ex.getMateriaprima().getUnidad()});
         }
         JOptionPane.showMessageDialog(null, new JScrollPane(pop), "Existencias", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btnVerExistenciasActionPerformed
@@ -470,20 +470,13 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     sql
      */
     public void buscarA(String buscar) {
-        ArrayList<MateriaPrima> listaCompleta = this.Imp.obtenerMateriaPrima();
-        ArrayList<MateriaPrima> listaBusqueda = new ArrayList<>();
-        for (MateriaPrima mp : listaCompleta) {
-            String id = mp.getId() + "";
-            if (mp.getNombre().equalsIgnoreCase(buscar) || mp.getDistribuidora().equalsIgnoreCase(buscar)
-                    || mp.getUnidad().equalsIgnoreCase(buscar) || id.equalsIgnoreCase(buscar)) {
-                listaBusqueda.add(mp);
-            }
-        }
-        if (listaBusqueda.size() > 0) {
+        String busqueda = txtBuscar.getText();
+        ArrayList<MateriaPrima> listaMateriales = this.Imp.obtenerListaPorPatron(busqueda);
+        if (!listaMateriales.isEmpty()) {
             borrarTabla();
             DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
 
-            for (MateriaPrima materiaPrima : listaBusqueda) {
+            for (MateriaPrima materiaPrima : listaMateriales) {
                 model.addRow(new Object[]{materiaPrima.getId(), materiaPrima.getNombre(),
                     materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
             }
@@ -493,6 +486,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                     "Advertencia", JOptionPane.INFORMATION_MESSAGE);
             this.txtBuscar.setText("");
         }
+
     }
 
     public JTable fTablaExistencias() {

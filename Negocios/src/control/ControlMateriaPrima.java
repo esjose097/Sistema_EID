@@ -197,5 +197,10 @@ public class ControlMateriaPrima implements IMateriaPrima {
         
         return nuevaLista;
     }
-
+    
+    @Override
+    public ArrayList<MateriaPrima> obtenerListaPorPatron(String textoPatron){
+        DAOMateriaPrima crud=new DAOMateriaPrima();
+        return crud.consultarPorPatron(textoPatron);
+    }
 }

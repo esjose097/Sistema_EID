@@ -2,6 +2,7 @@ package persistencia;
 
 import dominio.MateriaPrima;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,7 +35,7 @@ public class DAOMateriaPrima extends CRUD<MateriaPrima> {
             Connection conexion = this.getConexion();
             Statement comando = conexion.createStatement();
             String sql = String.format("UPDATE `tortilleria`.`materiaprima` SET `nombre` = '%s', `distribuidora` = '%s', `unidad` = '%s' WHERE (`idmateriaprima` = '%s');",
-                entidad.getNombre(), entidad.getDistribuidora(), entidad.getUnidad(), entidad.getId());
+            entidad.getNombre(), entidad.getDistribuidora(), entidad.getUnidad(), entidad.getId());
             comando.executeUpdate(sql);
             conexion.close();
             }
@@ -115,6 +116,30 @@ public class DAOMateriaPrima extends CRUD<MateriaPrima> {
             System.err.println(ex.getMessage());
             return null;
         }
+    }
+    
+    public ArrayList<MateriaPrima> consultarPorPatron(String textoBusqueda){
+        ArrayList<MateriaPrima> materias = new ArrayList<MateriaPrima>();
+        
+        try {
+            Connection conexion = this.getConexion();
+            String sql="SELECT * FROM tortilleria.materiaprima WHERE nombre LIKE ?;";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, '%'+textoBusqueda+'%');
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+            {                
+                int id = rs.getInt("idmateriaprima");
+                String nombre = rs.getString("nombre");
+                String distribuidora = rs.getString("distribuidora");
+                String unidad = rs.getString("unidad");
+                MateriaPrima matP = new MateriaPrima(id, nombre, distribuidora, unidad);
+                materias.add(matP);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return materias;
     }
 
 }

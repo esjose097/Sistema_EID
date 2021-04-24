@@ -277,32 +277,26 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         int[] indexs = tableInventario.getSelectedRows();
         int cant = (int) SpinnerCantidad.getValue();
-        if (indexs.length != 0)
-        {
+        if (indexs.length != 0) {
             DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
             DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
 
             MateriaPrima ex;
             Vector v;
-            int indexList = 0;            
+            int indexList = 0;
             for (int index : indexs) {
                 v = model.getDataVector().elementAt(index);
                 ex = new MateriaPrima((int) v.get(0), (String) v.get(1), (String) v.get(2), (String) v.get(3));
                 int datos[] = this.compruebaRepetido(ex, cant);
-                if(datos[2] == 1)
-                {   
-                    
+                if (datos[2] == 1) {
+
                     listmodel.set(datos[1],
                             (new ExistenciaMp(ex, datos[0])));
-                }
-                else
-                {
-                listmodel.addElement(new ExistenciaMp(ex, cant));
+                } else {
+                    listmodel.addElement(new ExistenciaMp(ex, cant));
                 }
             }
-        } 
-        else 
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun elemento,"
                     + " porfavor seleccione por lo menos un elemento de la tabla y presione"
                     + " el boton agregar", "Error", JOptionPane.ERROR_MESSAGE);
@@ -310,14 +304,12 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private int[] compruebaRepetido(MateriaPrima ex, int cant) {
-        int [] datos = new int[3];
+        int[] datos = new int[3];
         int banderaNumerica = -1;
         int indexList = 0;
         int nuevaCantidad = cant;
-        for (ExistenciaMp el : this.obtenerDatosLista())
-        {
-            if (el.getMateriaprima().getNombre().equals(ex.getNombre())) 
-            {
+        for (ExistenciaMp el : this.obtenerDatosLista()) {
+            if (el.getMateriaprima().getNombre().equals(ex.getNombre())) {
                 nuevaCantidad += el.getCantidad();
                 banderaNumerica = 1;
                 break;
@@ -327,7 +319,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         datos[0] = nuevaCantidad;
         datos[1] = indexList;
         datos[2] = banderaNumerica;
-        
+
         return datos;
     }
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -345,17 +337,27 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
         boolean option = rbEntrada.getModel().isSelected();
-        obtenerDatosLista();
         ArrayList<ExistenciaMp> ex = obtenerDatosLista();
+        ArrayList<ExistenciaMp> listaFiltrada;
         if (ex.size() > 0) {
             if (option) {
                 System.out.println("Entrada");
                 Imp.guardarEntrada(ex);
-                JOptionPane.showMessageDialog(this, "Entrada guardada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Entrada(s) guardada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 System.out.println("Salida");
-                Imp.guardarSalida(ex);
-                JOptionPane.showMessageDialog(this, "Salida guardada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                listaFiltrada = Imp.verificarExistencias(ex);
+                if (!listaFiltrada.equals(ex)) {
+                    if (listaFiltrada.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Uno o varias de las materias primas de la lista provisional no tiene existencias de entrada.", "Error de Salidas", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Uno o varias de las materias primas de la lista provisional no tiene existencias de entrada.", "Salidas sin existencias", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+
+                Imp.guardarSalida(listaFiltrada);
+                JOptionPane.showMessageDialog(this, "Salida(s) guardada con éxito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             }
             borrarLista();
         } else {
@@ -375,7 +377,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnVerExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerExistenciasActionPerformed
-        List<ExistenciaMp> existencias = Imp.ObtenerExistencia();
+        List<ExistenciaMp> existencias = Imp.obtenerExistencia();
         JTable pop = fTablaExistencias();
 
         DefaultTableModel model = (DefaultTableModel) pop.getModel();
@@ -424,7 +426,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     }
 
     public void actualizarTabla() {
-        ArrayList<MateriaPrima> listaMateria = Imp.ObtenerMateriaPrima();
+        ArrayList<MateriaPrima> listaMateria = Imp.obtenerMateriaPrima();
         borrarTabla();
         DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
 
@@ -446,9 +448,9 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
 
     public void borrarListaSeleccionado() {
         DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
-        int[] indices = JListListaProvisional.getSelectedIndices();
-        for (int indice : indices) {
-            listmodel.remove(indice);
+        List<ExistenciaMp> indices = JListListaProvisional.getSelectedValuesList();
+        for (ExistenciaMp indice : indices) {
+            listmodel.removeElement(indice);
         }
     }
 
@@ -468,7 +470,7 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     sql
      */
     public void buscarA(String buscar) {
-        ArrayList<MateriaPrima> listaCompleta = this.Imp.ObtenerMateriaPrima();
+        ArrayList<MateriaPrima> listaCompleta = this.Imp.obtenerMateriaPrima();
         ArrayList<MateriaPrima> listaBusqueda = new ArrayList<>();
         for (MateriaPrima mp : listaCompleta) {
             String id = mp.getId() + "";

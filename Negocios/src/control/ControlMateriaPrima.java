@@ -10,6 +10,7 @@ import interfaces.IMateriaPrima;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import persistencia.CRUD;
 import persistencia.DAODetalleMovimientoMp;
 import persistencia.DAOEmpleado;
@@ -27,7 +28,7 @@ public class ControlMateriaPrima implements IMateriaPrima {
     private CRUD crud;
 
     @Override
-    public ArrayList<MateriaPrima> ObtenerMateriaPrima() {
+    public ArrayList<MateriaPrima> obtenerMateriaPrima() {
         crud = new DAOMateriaPrima();
 
         return crud.consultarTodos();
@@ -72,7 +73,7 @@ public class ControlMateriaPrima implements IMateriaPrima {
     }
 
     @Override
-    public void elimnarPedidosMateria(ArrayList<ListaPedidosMat> materia) {
+    public void eliminarPedidosMateria(ArrayList<ListaPedidosMat> materia) {
         crud = new DAOListaPedidosMat();
 
         for (ListaPedidosMat listaPedidosMat : materia) {
@@ -126,7 +127,7 @@ public class ControlMateriaPrima implements IMateriaPrima {
     }
 
     @Override
-    public ArrayList<ExistenciaMp> ObtenerExistencia() {
+    public ArrayList<ExistenciaMp> obtenerExistencia() {
         crud = new DAOExistenciaMp();
         return crud.consultarTodos();
     }
@@ -155,17 +156,46 @@ public class ControlMateriaPrima implements IMateriaPrima {
                 ex.setCantidad(0);
                 crudextra.actualizar(ex);
             }
+            if(ex.getCantidad()!=0){
             mmp = new MovimientoMP(ultimoID, "Salida", fecha, existenciaMp.getMateriaprima());
             crudMMP.guardar(mmp);
             dmmp = new DetalleMovimientoMP(mmp, ultimoNumMov,existenciaMp.getCantidad());
-            crudDMMP.guardar(dmmp);
+            crudDMMP.guardar(dmmp);   
+            }
         }
     }
 
     @Override
-    public ArrayList<ListaPedidosMat> ObtenerListaPedidosMat() {
+    public ArrayList<ListaPedidosMat> obtenerListaPedidosMat() {
         crud = new DAOListaPedidosMat();
         return crud.consultarTodos();
+    }
+    
+
+    public boolean hayExistencia(ArrayList<ExistenciaMp> existencia) {
+        crud = new DAOExistenciaMp();
+        for (ExistenciaMp existenciaMp : existencia) {
+            ExistenciaMp mp= (ExistenciaMp) crud.consultarUno(existenciaMp.getMateriaprima().getNombre());
+            if (mp!=null) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    @Override
+    public ArrayList<ExistenciaMp> verificarExistencias(ArrayList<ExistenciaMp> existencia){
+        crud = new DAOExistenciaMp();
+        ArrayList nuevaLista = new ArrayList(existencia); //Copiar lista para no cambiar las variables referentes
+        
+        for (int i = 0; i < nuevaLista.size(); i++) {
+            ExistenciaMp mp= (ExistenciaMp) crud.consultarUno(existencia.get(i).getMateriaprima().getNombre());
+            if(mp==null){
+                nuevaLista.remove(i);
+            }
+        }
+        
+        return nuevaLista;
     }
 
 }

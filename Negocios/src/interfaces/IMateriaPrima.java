@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author Eliu
  */
 public interface IMateriaPrima {
-   public ArrayList<MateriaPrima> ObtenerMateriaPrima();
+   public ArrayList<MateriaPrima> obtenerMateriaPrima();
     
    public void guardarMateria(ArrayList<MateriaPrima> materia);
 
@@ -26,17 +26,18 @@ public interface IMateriaPrima {
 
    public void agregarPedidosMateria(ArrayList<ListaPedidosMat> materia);
 
-   public void elimnarPedidosMateria(ArrayList<ListaPedidosMat> materia);
+   public void eliminarPedidosMateria(ArrayList<ListaPedidosMat> materia);
 
    public Empleado obtenerEmpleado(String nombre);
 
    public void guardarEntrada(ArrayList<ExistenciaMp> Existencia);
 
-   public ArrayList<ExistenciaMp> ObtenerExistencia();
+   public ArrayList<ExistenciaMp> obtenerExistencia();
 
    public void guardarSalida(ArrayList<ExistenciaMp> Existencia);
 
-   public ArrayList<ListaPedidosMat> ObtenerListaPedidosMat();
+   public ArrayList<ListaPedidosMat> obtenerListaPedidosMat();
    
+   public ArrayList<ExistenciaMp> verificarExistencias(ArrayList<ExistenciaMp> existencia);
    
 }

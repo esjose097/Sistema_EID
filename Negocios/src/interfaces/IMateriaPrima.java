@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Eliu
+ * @author Comunidad del anillo
  */
 public interface IMateriaPrima {
    public ArrayList<MateriaPrima> obtenerMateriaPrima();

@@ -16,6 +16,7 @@ import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -453,13 +454,17 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
     }
 
     public void borrarTabla() {
-        DefaultTableModel model = (DefaultTableModel) tableInventario.getModel();
+        JTable tabla = tableInventario;
+        DefaultTableModel model = (DefaultTableModel) tabla.getModel();
         model.getDataVector().clear();
+        tabla.clearSelection();
     }
 
     public void borrarLista() {
-        DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) JListListaProvisional.getModel();
+        JList lista = JListListaProvisional;
+        DefaultListModel<ExistenciaMp> listmodel = (DefaultListModel<ExistenciaMp>) lista.getModel();
         listmodel.clear();
+        lista.clearSelection();
     }
 
     public void borrarListaSeleccionado() {

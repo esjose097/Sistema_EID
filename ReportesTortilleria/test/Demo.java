@@ -1,6 +1,5 @@
 
-import ReportesNegocio.IReportes;
-import ReportesNegocio.ReportesNegocio;
+import ReportesNegocio.ReportesMPNegocio;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -10,6 +9,8 @@ import java.util.GregorianCalendar;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
+import ReportesNegocio.IReportesMP;
+import ReportesNegocio.Rango;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,26 +24,16 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class Demo {
     public static void main(String[] args) {
-        IReportes reportes = new ReportesNegocio();
+        IReportesMP reportes = new ReportesMPNegocio();
         
 
         
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         
+     
         
-        Calendar c = new GregorianCalendar(2021,03, 15);
-        Calendar x = new GregorianCalendar(2021,03, 18);
-        
-        
-        
-        Date desde = c.getTime();
-        Date hasta = x.getTime();
-        
-        System.out.println(sdf.format(desde));
-        System.out.println(sdf.format(hasta));
-        
-        JasperPrint print= reportes.ReporteMateriaPrima(desde, hasta, "Entrada");
+        JasperPrint print= reportes.ReporteMP_Rango(Rango.UN_MES, "Entrada");
        
         JasperViewer.viewReport(print,true);
         

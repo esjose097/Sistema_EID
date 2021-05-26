@@ -450,7 +450,6 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
         for (MateriaPrima materiaPrima : listaMateria) {
             model.addRow(new Object[]{materiaPrima.getId(), materiaPrima.getNombre(), materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
         }
-
     }
 
     public void borrarTabla() {
@@ -507,7 +506,6 @@ public class MateriaPrima_Entradas_Salidas extends javax.swing.JFrame {
                     "Advertencia", JOptionPane.INFORMATION_MESSAGE);
             this.txtBuscar.setText("");
         }
-
     }
 
     public JTable fTablaExistencias() {

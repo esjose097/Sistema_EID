@@ -25,6 +25,7 @@ public class Reportes extends javax.swing.JFrame {
 
     public Reportes() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -56,8 +57,14 @@ public class Reportes extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Reportes");
         setBackground(new java.awt.Color(102, 255, 102));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
@@ -265,46 +272,20 @@ public class Reportes extends javax.swing.JFrame {
         int index = jTabbedPaneOpciones.getSelectedIndex(); // 0-> Rango - 1-> Periodo
 
         if (index == 0) {
+            this.setTitle("Cargando Reporte...");
             ReportePorRango();
+            this.setTitle("Reportes");
         } else {
+            this.setTitle("Cargando Reporte...");
             ReportePorPeriodo();
+            this.setTitle("Reportes");
         }
     }//GEN-LAST:event_btnGenerarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Reportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Reportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Reportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Reportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Reportes().setVisible(true);
-            }
-        });
-    }
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+        new Menu().setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     public void ReportePorRango() {
         int index = cbRango.getSelectedIndex();
@@ -380,12 +361,10 @@ public class Reportes extends javax.swing.JFrame {
                 materia = button.getText();
             }
         }
-        
+
         desde = dc_desde.getDate();
         hasta = dc_hasta.getDate();
-        
-        
-        
+
         if (materia.equals("Materia Prima")) {
             print = reporte.Get_ReporteMP_Periodo(desde, hasta, tipo);
         } else {
@@ -398,7 +377,6 @@ public class Reportes extends javax.swing.JFrame {
         jPanelReporte.add(new JRViewer(print));
 
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgMateria;

@@ -19,8 +19,10 @@ import persistencia.DAOMateriaPrima;
  * @author La comunidad del anillo.
  */
 public class JMateriaPrima extends javax.swing.JFrame {
+
     IMateriaPrima Imp;
     DAOMateriaPrima dao;
+
     /**
      * Creates new form MateriaPrima
      */
@@ -28,6 +30,7 @@ public class JMateriaPrima extends javax.swing.JFrame {
         this.Imp = new ControlMateriaPrima();
         this.dao = new DAOMateriaPrima();
         initComponents();
+        this.setLocationRelativeTo(null);
         this.actualizarTabla();
     }
 
@@ -36,27 +39,25 @@ public class JMateriaPrima extends javax.swing.JFrame {
         borrarTabla();
         DefaultTableModel model = (DefaultTableModel) this.jTablaMaterias.getModel();
 
-        for (dominio.MateriaPrima materiaPrima : listaMateria) 
-        {
+        for (dominio.MateriaPrima materiaPrima : listaMateria) {
             model.addRow(new Object[]{materiaPrima.getId(), materiaPrima.getNombre(), materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
         }
     }
-    
+
     public void borrarTabla() {
         JTable tabla = this.jTablaMaterias;
         DefaultTableModel model = (DefaultTableModel) tabla.getModel();
         model.getDataVector().clear();
         tabla.clearSelection();
     }
-    
+
     public void buscarA(String buscar) {
         String busqueda = txtBuscar.getText();
         ArrayList<dominio.MateriaPrima> listaMateriales = this.Imp.obtenerListaPorPatron(busqueda);
         if (!listaMateriales.isEmpty()) {
             borrarTabla();
             DefaultTableModel model = (DefaultTableModel) this.jTablaMaterias.getModel();
-            for (dominio.MateriaPrima materiaPrima : listaMateriales)
-            {
+            for (dominio.MateriaPrima materiaPrima : listaMateriales) {
                 model.addRow(new Object[]{materiaPrima.getId(), materiaPrima.getNombre(),
                     materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
             }
@@ -67,50 +68,41 @@ public class JMateriaPrima extends javax.swing.JFrame {
             this.txtBuscar.setText("");
         }
     }
-    
-    private void editar(){
-    int indice = this.jTablaMaterias.getSelectedRow();
-        if(indice != -1)
-        {
+
+    private void editar() {
+        int indice = this.jTablaMaterias.getSelectedRow();
+        if (indice != -1) {
             DefaultTableModel modeloTabla = (DefaultTableModel) this.jTablaMaterias.getModel();
-            Integer id = (Integer)modeloTabla.getValueAt(indice, 0);
-            MateriaPrima mp = this.dao.consultarUno(id+"");
+            Integer id = (Integer) modeloTabla.getValueAt(indice, 0);
+            MateriaPrima mp = this.dao.consultarUno(id + "");
             JAgregar panel = new JAgregar(mp);
             panel.setVisible(true);
             this.dispose();
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Se debe seleccionar un elemento de la tabla,"
                     + "por favor, seleccione una opción valida.",
-            "Error.", JOptionPane.ERROR_MESSAGE);
+                    "Error.", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void eliminar(){
-    int indice = this.jTablaMaterias.getSelectedRow();
-        if(indice != -1)
-        {
+
+    private void eliminar() {
+        int indice = this.jTablaMaterias.getSelectedRow();
+        if (indice != -1) {
             DefaultTableModel modeloTabla = (DefaultTableModel) this.jTablaMaterias.getModel();
-            Integer id = (Integer)modeloTabla.getValueAt(indice, 0);
-            MateriaPrima mp = this.dao.consultarUno(id+"");
+            Integer id = (Integer) modeloTabla.getValueAt(indice, 0);
+            MateriaPrima mp = this.dao.consultarUno(id + "");
             this.dao.eliminar(mp);
             JOptionPane.showMessageDialog(this, "La materia prima ha sido eliminada de manera"
                     + " satisfactoria!",
-            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            
-        }
-        else
-        {
+                    "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
             JOptionPane.showMessageDialog(this, "Se debe seleccionar un elemento de la tabla,"
                     + "por favor, seleccione una opción valida.",
-            "Error.", JOptionPane.ERROR_MESSAGE);            
-        }        
+                    "Error.", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,8 +121,13 @@ public class JMateriaPrima extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Materias primas");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,8 +154,15 @@ public class JMateriaPrima extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTablaMaterias);
 
+        btnVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
+        btnAgregar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +170,7 @@ public class JMateriaPrima extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,6 +178,7 @@ public class JMateriaPrima extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +186,7 @@ public class JMateriaPrima extends javax.swing.JFrame {
             }
         });
 
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,25 +201,25 @@ public class JMateriaPrima extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnVolver)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnVolver)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(btnAgregar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEditar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(btnAgregar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 20, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar)
-                .addGap(18, 18, 18))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,28 +227,29 @@ public class JMateriaPrima extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addGap(16, 16, 16)
+                    .addComponent(btnBuscar)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
-     JAgregar panel = new JAgregar(null);
-     panel.setVisible(true);
-     this.dispose();
+        JAgregar panel = new JAgregar(null);
+        panel.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -250,47 +258,22 @@ public class JMateriaPrima extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         this.eliminar();
+        actualizarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         this.buscarA(this.txtBuscar.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JMateriaPrima.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JMateriaPrima.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JMateriaPrima.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JMateriaPrima.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        this.dispose();
+        new Menu().setVisible(true);
+    }//GEN-LAST:event_btnVolverActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JMateriaPrima().setVisible(true);
-            }
-        });
-    }
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+        new Menu().setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

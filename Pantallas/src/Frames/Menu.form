@@ -197,6 +197,9 @@
               <Image iconType="3" name="/Recursos/Reporte.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportesActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEntrada_Salida_MateriaPrima">
           <Properties>

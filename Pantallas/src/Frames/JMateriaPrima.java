@@ -9,9 +9,11 @@ import control.ControlMateriaPrima;
 import dominio.MateriaPrima;
 import interfaces.IMateriaPrima;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import persistencia.DAOMateriaPrima;
 
 /**
@@ -38,7 +40,7 @@ public class JMateriaPrima extends javax.swing.JFrame {
         ArrayList<dominio.MateriaPrima> listaMateria = Imp.obtenerMateriaPrima();
         borrarTabla();
         DefaultTableModel model = (DefaultTableModel) this.jTablaMaterias.getModel();
-
+         borrarTabla();
         for (dominio.MateriaPrima materiaPrima : listaMateria) {
             model.addRow(new Object[]{materiaPrima.getId(), materiaPrima.getNombre(), materiaPrima.getDistribuidora(), materiaPrima.getUnidad()});
         }
@@ -86,16 +88,18 @@ public class JMateriaPrima extends javax.swing.JFrame {
     }
 
     private void eliminar() {
-        int indice = this.jTablaMaterias.getSelectedRow();
-        if (indice != -1) {
-            DefaultTableModel modeloTabla = (DefaultTableModel) this.jTablaMaterias.getModel();
-            Integer id = (Integer) modeloTabla.getValueAt(indice, 0);
-            MateriaPrima mp = this.dao.consultarUno(id + "");
-            this.dao.eliminar(mp);
+        int[] indices = this.jTablaMaterias.getSelectedRows();
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.jTablaMaterias.getModel();
+
+        if (indices.length != 0) {
+            for (int indice : indices) {
+                Integer id = (Integer) modeloTabla.getValueAt(indice, 0);
+                MateriaPrima mp = this.dao.consultarUno(id + "");
+                this.dao.eliminar(mp);
+            }
             JOptionPane.showMessageDialog(this, "La materia prima ha sido eliminada de manera"
                     + " satisfactoria!",
                     "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-
         } else {
             JOptionPane.showMessageDialog(this, "Se debe seleccionar un elemento de la tabla,"
                     + "por favor, seleccione una opción valida.",
@@ -225,10 +229,11 @@ public class JMateriaPrima extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVolver)
-                    .addComponent(btnBuscar)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnVolver)
+                        .addComponent(btnBuscar)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)

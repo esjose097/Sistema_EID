@@ -56,7 +56,7 @@ public class JAgregar extends javax.swing.JFrame {
             String unidad = this.txtUnidad.getText();
             if (this.txtId.getText().isEmpty() == false) {
                 Integer id = Integer.parseInt(this.txtId.getText());
-                MateriaPrima mp = new MateriaPrima(id, nombre, unidad, unidad);
+                MateriaPrima mp = new MateriaPrima(id, nombre, marca, unidad);
                 this.dao.actualizar(mp);
                 this.despliegaPtMateriaPrima();
                 JOptionPane.showMessageDialog(this, "La materia prima ha sido actualizada de manera"

@@ -47,6 +47,7 @@ public class Reportes extends javax.swing.JFrame {
         rbMateriaPrima = new javax.swing.JRadioButton();
         rbProducto = new javax.swing.JRadioButton();
         btnGenerar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
         jPanelReporte = new javax.swing.JPanel();
         jTabbedPaneOpciones = new javax.swing.JTabbedPane();
         jPanelDias = new javax.swing.JPanel();
@@ -140,21 +141,33 @@ public class Reportes extends javax.swing.JFrame {
             }
         });
 
+        btnVolver.setBackground(new java.awt.Color(255, 51, 51));
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(panelTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(btnGenerar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(btnVolver)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnGenerar))
+                    .addComponent(panelMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -164,7 +177,9 @@ public class Reportes extends javax.swing.JFrame {
                     .addComponent(panelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGenerar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGenerar)
+                    .addComponent(btnVolver)))
         );
 
         jPanelReporte.setBackground(new java.awt.Color(255, 255, 255));
@@ -287,6 +302,11 @@ public class Reportes extends javax.swing.JFrame {
         new Menu().setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        this.dispose();
+        new Menu().setVisible(true);
+    }//GEN-LAST:event_btnVolverActionPerformed
+
     public void ReportePorRango() {
         int index = cbRango.getSelectedIndex();
         Rango rango = Rango.HOY;
@@ -382,6 +402,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bgMateria;
     private javax.swing.ButtonGroup bgTipo;
     private javax.swing.JButton btnGenerar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbRango;
     private com.toedter.calendar.JDateChooser dc_desde;
     private com.toedter.calendar.JDateChooser dc_hasta;
